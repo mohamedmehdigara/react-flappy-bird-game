@@ -80,10 +80,40 @@ const App = () => {
     }
   };
 
+  // Added a new function to restart the game.
+  const restartGame = () => {
+    setBirdPosition({
+      top: 0,
+    });
+
+    setObstacles([
+      {
+        type: 'pipe',
+        position: {
+          x: 500,
+          y: 0,
+        },
+      },
+    ]);
+
+    setPowerUps([
+      {
+        type: 'speedBoost',
+        position: {
+          x: 300,
+          y: 0,
+        },
+      },
+    ]);
+  };
+
   React.useEffect(() => {
     const interval = setInterval(checkForCollision, 20);
+
+    // Added a new cleanup function to restart the game when the component is unmounted.
     return () => {
       clearInterval(interval);
+      restartGame();
     };
   }, [obstacles, birdPosition]);
 
