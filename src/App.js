@@ -29,6 +29,7 @@ const App = () => {
         y: 0,
       },
     },
+    { type: 'invincibility', position: { x: 300, y: 100 }, effect: () => { /* make the bird invincible for a short period of time */ } }
   ]);
 
   const [scores, setScores] = React.useState([]);
@@ -130,7 +131,7 @@ const App = () => {
           <Obstacle key={index} type={obstacle.type} position={obstacle.position} color={obstacle.color}/>
         ))}
         {powerUps.map((powerUp, index) => (
-          <PowerUp key={index} type={powerUp.type} position={powerUp.position} />
+          <PowerUp key={index} type={powerUp.type} position={powerUp.position} effect={powerUp.effect}/>
         ))}
       </Game>
       <Leaderboard scores={scores} />
