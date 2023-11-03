@@ -1,45 +1,29 @@
-import React from 'react';
-import Game from './components/Game';
-import Obstacle from './components/Obstacle';
-import PowerUp from './components/PowerUp';
-import Leaderboard from './components/Leaderboard';
-import Bird from './components/Bird';
+
+import React, { useState, useEffect } from "react";
+import Game from "./components/Game";
+import Obstacle from "./components/Obstacle";
+import PowerUp from "./components/PowerUp";
+import Leaderboard from "./components/Leaderboard";
+import Bird from "./components/Bird";
 
 const App = () => {
-  const [birdPosition, setBirdPosition] = React.useState({
-    top: 0,
-  });
-
-  const [obstacles, setObstacles] = React.useState([
-    {
-      type: 'pipe',
-      position: {
-        x: 500,
-        y: 0,
-      },
-    },
-    { type: 'platform', position: { x: 300, y: 100 }, color: 'blue' }
+  const [birdPosition, setBirdPosition] = useState({ top: 0 });
+  const [obstacles, setObstacles] = useState([
+    { type: "pipe", position: { x: 500, y: 0 } },
+    { type: "platform", position: { x: 300, y: 100 }, color: "blue" },
   ]);
-  const [powerUps, setPowerUps] = React.useState([
+  const [powerUps, setPowerUps] = useState([
     {
       type: "speedBoost",
-      position: {
-        x: 300,
-        y: 0,
-      },
+      position: { x: 300, y: 0 },
       effect: () => {
-        // Increase the bird's speed by 10%.
         setBirdSpeed(birdSpeed * 1.1);
       },
     },
     {
       type: "invincibility",
-      position: {
-        x: 300,
-        y: 100,
-      },
+      position: { x: 300, y: 100 },
       effect: () => {
-        // Make the bird invincible for 5 seconds.
         setBirdIsInvincible(true);
         setTimeout(() => {
           setBirdIsInvincible(false);
@@ -47,47 +31,49 @@ const App = () => {
       },
     },
   ]);
-  
+  const [scores, setScores] = useState([]);
 
-  const [scores, setScores] = React.useState([]);
+  // Added a new state variable to track the bird's speed.
+  const [birdSpeed, setBirdSpeed] = useState(100);
 
-  const handleBirdMove = (event) => {
-    // Update the bird's position based on the keyboard input.
+  // Added a new state variable to track whether the bird is invincible.
+  const [birdIsInvincible, setBirdIsInvincible] = useState(false);
+
+  // Added a new function to handle bird movement.
+  const handleBirdMovement = (event) => {
     switch (event.keyCode) {
       case 38: // Up arrow
-        setBirdPosition({
-          ...birdPosition,
-          top: birdPosition.top - 10,
-        });
+        setBirdPosition({ ...birdPosition, top: birdPosition.top - 10 });
         break;
       case 40: // Down arrow
-        setBirdPosition({
-          ...birdPosition,
-          top: birdPosition.top + 10,
-        });
+        setBirdPosition({ ...birdPosition, top: birdPosition.top + 10 });
         break;
       default:
         break;
     }
   };
 
+  // Added a new function to handle bird collision.
   const handleBirdCollision = () => {
     // Game over!
-    alert('Game over!');
+    alert("Game over!");
+
+    // Added a new line to restart the game.
+    restartGame();
   };
 
+  // Added a new function to handle gravity.
   const handleGravity = () => {
-    // Update the bird's position based on gravity.
-    setBirdPosition({
-      ...birdPosition,
-      top: birdPosition.top + 1,
-    });
+    // Added a conditional statement to check if the bird is invincible.
+    if (!birdIsInvincible) {
+      setBirdPosition({ ...birdPosition, top: birdPosition.top + 1 });
+    }
   };
 
+  // Added a new function to check for collision.
   const checkForCollision = () => {
     const bird = <Bird />;
 
-    // Check if the bird is colliding with any of the obstacles.
     for (const obstacle of obstacles) {
       if (birdPosition.top < obstacle.position.y + obstacle.height &&
           birdPosition.top + bird.height > obstacle.position.y &&
@@ -97,8 +83,17 @@ const App = () => {
         break;
       }
     }
-  };
 
+    for (const powerUp of powerUps) {
+      if (birdPosition.top < powerUp.position.y + powerUp.height &&
+          birdPosition.top + bird.height > powerUp.position.y &&
+          birdPosition.left < powerUp.position.x + powerUp.width &&
+          birdPosition.left + bird.width > powerUp.position.x) {
+        powerUp.effect();
+        break;
+      }
+    }
+  };
   // Added a new function to restart the game.
   const restartGame = () => {
     setBirdPosition({
