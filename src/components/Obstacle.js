@@ -11,7 +11,7 @@ const ObstacleContainer = styled.div`
   background-color: green;
 `;
 
-const Obstacle = ({ type, position }) => {
+const Obstacle = ({ type, position, color }) => {
   // Render the appropriate obstacle based on the type.
   switch (type) {
     case 'pipe':
@@ -20,6 +20,7 @@ const Obstacle = ({ type, position }) => {
           style={{
             top: position.y,
             left: position.x,
+            backgroundColor: color,
           }}
         />
       );
@@ -29,6 +30,7 @@ const Obstacle = ({ type, position }) => {
           style={{
             top: position.y,
             left: position.x,
+            backgroundColor: color,
           }}
         />
       );

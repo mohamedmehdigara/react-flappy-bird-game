@@ -18,6 +18,7 @@ const App = () => {
         y: 0,
       },
     },
+    { type: 'platform', position: { x: 300, y: 100 }, color: 'blue' }
   ]);
 
   const [powerUps, setPowerUps] = React.useState([
@@ -126,7 +127,7 @@ const App = () => {
           }}
         />
         {obstacles.map((obstacle, index) => (
-          <Obstacle key={index} type={obstacle.type} position={obstacle.position} />
+          <Obstacle key={index} type={obstacle.type} position={obstacle.position} color={obstacle.color}/>
         ))}
         {powerUps.map((powerUp, index) => (
           <PowerUp key={index} type={powerUp.type} position={powerUp.position} />
