@@ -19,7 +19,6 @@ const BirdContainer = styled.div`
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background-image: url('/path/to/bird-sprite.svg');
     background-repeat: no-repeat;
     background-size: contain;
   }
@@ -36,6 +35,8 @@ const Bird = ({ position }) => {
       style={{ top: position.top, left: position.left }}
       key={position.top}
       alt="Bird sprite"
+      title="Bird sprite"
+      role="img"
       className="bird-sprite"
     />
   );

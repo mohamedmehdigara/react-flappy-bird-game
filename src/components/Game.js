@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import Bird from './Bird';
 import GameContainer from './GameContainer';
 
@@ -7,25 +7,34 @@ const Game = () => {
     top: 0,
   });
 
-  const handleBirdMove = (event) => {
-    // Update the bird's position based on the keyboard input.
-    switch (event.keyCode) {
-      case 38: // Up arrow
-        setBirdPosition({
-          ...birdPosition,
-          top: birdPosition.top - 10,
-        });
-        break;
-      case 40: // Down arrow
-        setBirdPosition({
-          ...birdPosition,
-          top: birdPosition.top + 10,
-        });
-        break;
-      default:
-        break;
-    }
-  };
+  const memoizedBirdPosition = useMemo(() => birdPosition, [birdPosition]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      switch (event.keyCode) {
+        case 38: // Up arrow
+          setBirdPosition({
+            ...birdPosition,
+            top: birdPosition.top - 10,
+          });
+          break;
+        case 40: // Down arrow
+          setBirdPosition({
+            ...birdPosition,
+            top: birdPosition.top + 10,
+          });
+          break;
+        default:
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [birdPosition]);
 
   // Added a function to handle game over.
   const handleGameOver = () => {
@@ -36,7 +45,7 @@ const Game = () => {
   // Added a callback to the Bird component to handle game over.
   return (
     <GameContainer>
-      <Bird position={birdPosition} onGameOver={handleGameOver} />
+      <Bird position={memoizedBirdPosition} onGameOver={handleGameOver} />
     </GameContainer>
   );
 };
