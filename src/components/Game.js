@@ -9,11 +9,28 @@ const Game = () => {
 
   const handleBirdMove = (event) => {
     // Update the bird's position based on the keyboard input.
+    switch (event.keyCode) {
+      case 38: // Up arrow
+        setBirdPosition({
+          ...birdPosition,
+          top: birdPosition.top - 10,
+        });
+        break;
+      case 40: // Down arrow
+        setBirdPosition({
+          ...birdPosition,
+          top: birdPosition.top + 10,
+        });
+        break;
+      default:
+        break;
+    }
   };
-
+  
   return (
     <GameContainer>
       <Bird position={birdPosition} />
+      
     </GameContainer>
   );
 };
