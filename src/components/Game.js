@@ -26,11 +26,17 @@ const Game = () => {
         break;
     }
   };
-  
+
+  // Added a function to handle game over.
+  const handleGameOver = () => {
+    // TODO: Implement game over logic here.
+    alert('Game over!');
+  };
+
+  // Added a callback to the Bird component to handle game over.
   return (
     <GameContainer>
-      <Bird position={birdPosition} />
-      
+      <Bird position={birdPosition} onGameOver={handleGameOver} />
     </GameContainer>
   );
 };

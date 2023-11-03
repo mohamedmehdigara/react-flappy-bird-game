@@ -11,37 +11,33 @@ const BirdContainer = styled.div`
   background-color: transparent;
   border-radius: 50%;
 
-  animation: flap 1s linear infinite;
-
   &::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
-    background-color: red;
+    background-image: url('/path/to/bird-sprite.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
   }
 
-  @keyframes flap {
-    0% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(10px);
-    }
-    100% {
-      transform: translateY(0);
-    }
+  /* Added a CSS class for styling the bird sprite */
+  .bird-sprite {
+    animation: flap 1s linear infinite;
   }
 `;
 
 const Bird = ({ position }) => {
   return (
-    <BirdContainer style={{ top: position.top, left: position.left }}>
-      {/* The bird sprite is now rendered using a CSS pseudo-element */}
-    </BirdContainer>
+    <BirdContainer
+      style={{ top: position.top, left: position.left }}
+      key={position.top}
+      alt="Bird sprite"
+      className="bird-sprite"
+    />
   );
 };
 

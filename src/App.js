@@ -133,7 +133,7 @@ const App = () => {
 
   return (
     <div>
-      <Game>
+      
         <Bird
           style={{
             top: birdPosition.top,
@@ -146,7 +146,7 @@ const App = () => {
         {powerUps.map((powerUp, index) => (
           <PowerUp key={index} type={powerUp.type} position={powerUp.position} effect={powerUp.effect}/>
         ))}
-      </Game>
+      <Game/>
       <Leaderboard scores={scores} />
     </div>
   );
