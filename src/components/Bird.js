@@ -26,17 +26,43 @@ const BirdContainer = styled.div`
 `;
 
 const Bird = ({ position }) => {
+  const [velocity, setVelocity] = React.useState({
+    x: 0,
+    y: 0,
+  });
   // Check the bird's position against the positions of the obstacles.
   // If the bird collides with an obstacle, end the game or reset the bird's position.
+  const isCollidingWithObstacle = () => {
+    // Iterate over all of the obstacles and check if the bird is colliding with any of them.
+    // You can use the `getBoundingClientRect()` method to get the bounding rectangle of the bird and the obstacles.
+    // If the bird is colliding with an obstacle, return `true`. Otherwise, return `false`.
+  };
+
+  const handleCollision = () => {
+    // You can end the game by calling the `gameOver()` function.
+    // You can reset the bird's position by setting the `position` prop to its initial value.
+  };
 
   // Update the bird's position based on gravity.
-  position.y += 0.1;
+  const updatePositionBasedOnGravity = () => {
+    // Add the force of gravity to the bird's vertical velocity.
+    position.y += velocity.y;
+
+    // Limit the bird's vertical velocity to a maximum value.
+    velocity.y = Math.min(velocity.y, 10);
+  };
 
   // Check if the bird has hit the ground.
-  if (position.y >= window.innerHeight) {
-    // The bird has hit the ground!
-    // Handle the collision here.
-  }
+  const hasHitGround = () => {
+    // Check if the bird's y-position is greater than or equal to the height of the window.
+    return position.y >= window.innerHeight;
+  };
+
+  // Handle the collision with the ground.
+  const handleGroundCollision = () => {
+    // You can end the game by calling the `gameOver()` function.
+    // You can reset the bird's position by setting the `position` prop to its initial value.
+  };
 
   // Render the bird's sprite.
   return (
