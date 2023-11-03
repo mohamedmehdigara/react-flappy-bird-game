@@ -8,6 +8,8 @@ const GameContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  /* Added a background color to the game container */
+  background-color: #fff;
 `;
 
 export default GameContainer;

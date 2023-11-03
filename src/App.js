@@ -5,6 +5,7 @@ import Obstacle from "./components/Obstacle";
 import PowerUp from "./components/PowerUp";
 import Leaderboard from "./components/Leaderboard";
 import Bird from "./components/Bird";
+import GameContainer from "./components/GameContainer";
 
 const App = () => {
   const [birdPosition, setBirdPosition] = useState({ top: 0 });
@@ -148,6 +149,7 @@ const App = () => {
         ))}
       <Game/>
       <Leaderboard scores={scores} />
+      <GameContainer/>
     </div>
   );
 };
