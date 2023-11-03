@@ -1,4 +1,3 @@
-// PowerUpComponent.js
 import React from 'react';
 import styled from 'styled-components';
 
@@ -17,6 +16,9 @@ const PowerUp = ({ type, position, effect }) => {
     case 'speedBoost':
       return (
         <PowerUpContainer
+          key={position.y}
+          title="Speed boost power-up"
+          role="powerup"
           style={{
             top: position.y,
             left: position.x,
@@ -26,6 +28,9 @@ const PowerUp = ({ type, position, effect }) => {
     case 'invincibility':
       return (
         <PowerUpContainer
+          key={position.y}
+          title="Invincibility power-up"
+          role="powerup"
           style={{
             top: position.y,
             left: position.x,

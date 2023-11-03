@@ -1,4 +1,3 @@
-// LeaderboardComponent.js
 import React from 'react';
 import styled from 'styled-components';
 
@@ -26,10 +25,10 @@ const Leaderboard = ({ scores }) => {
 
   // Render a list of the top scores.
   return (
-    <LeaderboardContainer>
+    <LeaderboardContainer className="leaderboard-container">
       <h1>Leaderboard</h1>
       {sortedScores.map((score, index) => (
-        <LeaderboardItem key={index}>
+        <LeaderboardItem key={index} title={score.name}>
           {score.name}: {score.score}
         </LeaderboardItem>
       ))}

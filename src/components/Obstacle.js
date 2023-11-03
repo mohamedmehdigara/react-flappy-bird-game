@@ -1,4 +1,3 @@
-// ObstacleComponent.js
 import React from 'react';
 import styled from 'styled-components';
 
@@ -17,6 +16,9 @@ const Obstacle = ({ type, position, color }) => {
     case 'pipe':
       return (
         <ObstacleContainer
+          key={position.y}
+          title="Pipe obstacle"
+          role="obstacle"
           style={{
             top: position.y,
             left: position.x,
@@ -27,6 +29,9 @@ const Obstacle = ({ type, position, color }) => {
     case 'platform':
       return (
         <ObstacleContainer
+          key={position.y}
+          title="Platform obstacle"
+          role="obstacle"
           style={{
             top: position.y,
             left: position.x,
