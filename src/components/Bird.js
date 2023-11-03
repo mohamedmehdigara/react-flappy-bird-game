@@ -8,7 +8,8 @@ const BirdContainer = styled.div`
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  background-color: red;
+  background-color: transparent;
+  border-radius: 50%;
 
   animation: flap 1s linear infinite;
 
@@ -20,7 +21,7 @@ const BirdContainer = styled.div`
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: yellow;
+    background-color: red;
   }
 
   @keyframes flap {
@@ -38,7 +39,7 @@ const BirdContainer = styled.div`
 
 const Bird = ({ position }) => {
   return (
-    <BirdContainer style={{ top: position.top }}>
+    <BirdContainer style={{ top: position.top, left: position.left }}>
       {/* The bird sprite is now rendered using a CSS pseudo-element */}
     </BirdContainer>
   );

@@ -138,6 +138,7 @@ const App = () => {
           style={{
             top: birdPosition.top,
           }}
+          position={birdPosition}
         />
         {obstacles.map((obstacle, index) => (
           <Obstacle key={index} type={obstacle.type} position={obstacle.position} color={obstacle.color}/>
