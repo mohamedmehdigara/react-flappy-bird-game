@@ -26,17 +26,32 @@ const BirdContainer = styled.div`
 `;
 
 const Bird = ({ position }) => {
+  const bird = document.querySelector('.bird');
+
   const [velocity, setVelocity] = React.useState({
     x: 0,
     y: 0,
   });
   // Check the bird's position against the positions of the obstacles.
   // If the bird collides with an obstacle, end the game or reset the bird's position.
-  const isCollidingWithObstacle = () => {
+  const isCollidingWithObstacle = (obstacles) => {
     // Iterate over all of the obstacles and check if the bird is colliding with any of them.
-    // You can use the `getBoundingClientRect()` method to get the bounding rectangle of the bird and the obstacles.
-    // If the bird is colliding with an obstacle, return `true`. Otherwise, return `false`.
+    for (const obstacle of obstacles) {
+      // Get the bounding rectangles of the bird and the obstacle.
+      const birdRect = bird.getBoundingClientRect();
+      const obstacleRect = obstacle.getBoundingClientRect();
+  
+      // Check if the bird's bounding rectangle intersects with the obstacle's bounding rectangle.
+      if (birdRect.intersects(obstacleRect)) {
+        // The bird is colliding with an obstacle!
+        return true;
+      }
+    }
+  
+    // The bird is not colliding with any obstacles.
+    return false;
   };
+  
 
   const handleCollision = () => {
     // You can end the game by calling the `gameOver()` function.
