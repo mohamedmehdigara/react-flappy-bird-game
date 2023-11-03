@@ -20,17 +20,34 @@ const App = () => {
     },
     { type: 'platform', position: { x: 300, y: 100 }, color: 'blue' }
   ]);
-
   const [powerUps, setPowerUps] = React.useState([
     {
-      type: 'speedBoost',
+      type: "speedBoost",
       position: {
         x: 300,
         y: 0,
       },
+      effect: () => {
+        // Increase the bird's speed by 10%.
+        setBirdSpeed(birdSpeed * 1.1);
+      },
     },
-    { type: 'invincibility', position: { x: 300, y: 100 }, effect: () => { /* make the bird invincible for a short period of time */ } }
+    {
+      type: "invincibility",
+      position: {
+        x: 300,
+        y: 100,
+      },
+      effect: () => {
+        // Make the bird invincible for 5 seconds.
+        setBirdIsInvincible(true);
+        setTimeout(() => {
+          setBirdIsInvincible(false);
+        }, 5000);
+      },
+    },
   ]);
+  
 
   const [scores, setScores] = React.useState([]);
 
