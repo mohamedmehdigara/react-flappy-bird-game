@@ -34,22 +34,58 @@ const App = () => {
 
   const handleBirdMove = (event) => {
     // Update the bird's position based on the keyboard input.
+    switch (event.keyCode) {
+      case 38: // Up arrow
+        setBirdPosition({
+          ...birdPosition,
+          top: birdPosition.top - 10,
+        });
+        break;
+      case 40: // Down arrow
+        setBirdPosition({
+          ...birdPosition,
+          top: birdPosition.top + 10,
+        });
+        break;
+      default:
+        break;
+    }
   };
 
   const handleBirdCollision = () => {
     // Game over!
+    alert('Game over!');
   };
 
   const handleGravity = () => {
     // Update the bird's position based on gravity.
+    setBirdPosition({
+      ...birdPosition,
+      top: birdPosition.top + 1,
+    });
+  };
+
+  const checkForCollision = () => {
+    const bird = <Bird />;
+
+    // Check if the bird is colliding with any of the obstacles.
+    for (const obstacle of obstacles) {
+      if (birdPosition.top < obstacle.position.y + obstacle.height &&
+          birdPosition.top + bird.height > obstacle.position.y &&
+          birdPosition.left < obstacle.position.x + obstacle.width &&
+          birdPosition.left + bird.width > obstacle.position.x) {
+        handleBirdCollision();
+        break;
+      }
+    }
   };
 
   React.useEffect(() => {
-    const interval = setInterval(handleGravity, 20);
+    const interval = setInterval(checkForCollision, 20);
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [obstacles, birdPosition]);
 
   return (
     <div>
