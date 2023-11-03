@@ -15,7 +15,7 @@ const GameContainer = styled.div`
   border: 1px solid #ccc;
 `;
 
-const GameContainer = () => {
+const MyGameContainer = () => {
   return (
     <div>
       <Game />
@@ -23,4 +23,4 @@ const GameContainer = () => {
   );
 };
 
-export default GameContainer;
+export default MyGameContainer;
