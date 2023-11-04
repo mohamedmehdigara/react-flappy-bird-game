@@ -22,6 +22,14 @@ const GameMenuButton = styled.button`
   cursor: pointer;
 `;
 
+export
+ 
+function
+ 
+onStartGame() {
+  // ...
+}
+
 const GameMenu = ({ onStartGame }) => {
   return (
     <GameMenuContainer>

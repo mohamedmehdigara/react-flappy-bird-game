@@ -4,7 +4,7 @@ import Obstacle from './components/Obstacle';
 import PowerUp from './components/PowerUp';
 import Leaderboard from './components/Leaderboard';
 import GameLevel from './components/GameLevel';
-import GameMenu from './components/GameMenu';
+import GameMenu, {onStartGame} from './components/GameMenu';
 
 const App = () => {
   const [gameState, setGameState] = useState('menu');
@@ -120,7 +120,8 @@ const App = () => {
       <PowerUp />
       <Leaderboard />
       <GameLevel />
-      <GameMenu />
+      <GameMenu onStartGame={onStartGame} />
+      
     </div>
   );
 };
