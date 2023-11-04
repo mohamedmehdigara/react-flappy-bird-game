@@ -40,7 +40,7 @@ const App = () => {
 
   const checkForCollision = useCallback(() => {
     const bird = birdRef.current;
-  
+
     if (bird) {
       for (const obstacle of obstacles) {
         if (bird.position.top < obstacle.position.y + obstacle.height &&
@@ -51,7 +51,7 @@ const App = () => {
           break;
         }
       }
-  
+
       for (const powerUp of powerUps) {
         if (bird.position.top < powerUp.position.y + powerUp.height &&
             bird.position.top + bird.height > powerUp.position.y &&
@@ -63,7 +63,7 @@ const App = () => {
       }
     }
   }, [birdRef, obstacles, powerUps]);
-  
+
   const restartGame = () => {
     setBird({ top: 0 });
 
@@ -88,13 +88,20 @@ const App = () => {
     ]);
   };
 
-  // Use the useEffect hook to check for collisions every 20 milliseconds.
+  // Use the useEffect hook to check for collisions every 20 milliseconds and update the bird's position.
   useEffect(() => {
     const interval = setInterval(checkForCollision, 20);
 
-    // Return a cleanup function to clear the interval when the component is unmounted.
+    const updateBirdPosition = () => {
+      // Update the bird's position here.
+    };
+
+    updateBirdPosition();
+
+    // Return a cleanup function to clear the interval and stop updating the bird's position when the component is unmounted.
     return () => {
       clearInterval(interval);
+      updateBirdPosition();
     };
   }, [checkForCollision]);
 
