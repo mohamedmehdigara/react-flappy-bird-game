@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
 const LeaderboardContainer = styled.div`
@@ -24,7 +24,9 @@ const LeaderboardItem = styled.div`
   justify-content: space-between;
 `;
 
-const Leaderboard = ({ scores }) => {
+const Leaderboard = ({  }) => {
+  const [scores, setScores] = useState([]);
+
   // Sort the scores in descending order.
   const sortedScores = scores.sort((a, b) => b.score - a.score);
 
