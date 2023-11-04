@@ -42,6 +42,9 @@ const Game = () => {
     setBirdPosition({ top: 0 });
 
     // TODO: Implement a leaderboard to store the player's high score.
+
+    // Return true to indicate that the game is over.
+    return true;
   };
 
   // Added a callback to the Bird component to handle game over.

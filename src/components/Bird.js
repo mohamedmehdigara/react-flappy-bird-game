@@ -1,49 +1,27 @@
 import React from "react";
-import styled from "styled-components";
 
-const BirdContainer = styled.div`
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: transparent;
-  border-radius: 50%;
+const Bird = () => {
+  const canvas = React.useRef(null);
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background-repeat: no-repeat;
-    background-size: contain;
-  }
+  React.useEffect(() => {
+    const ctx = canvas.current.getContext('2d');
 
-  /* Added a CSS class for styling the bird sprite */
-  .bird-sprite {
-    animation: flap 1s linear infinite;
-  }
+    // Set the canvas size
+    canvas.current.width = 500;
+    canvas.current.height = 500;
 
-  /* Added a CSS class for styling the bird when it is invincible */
-  .bird-invincible {
-    opacity: 0.5;
-  }
-`;
+    // Draw a bird
+    ctx.fillStyle = '#000000';
+    ctx.beginPath();
+    ctx.moveTo(100, 100);
+    ctx.lineTo(200, 200);
+    ctx.lineTo(300, 100);
+    ctx.closePath();
+    ctx.fill();
+  }, []);
 
-const Bird = ({ position, isInvincible }) => {
   return (
-    <BirdContainer
-      style={{ top: position.top, left: position.left }}
-      key={position.top}
-      alt="Bird sprite"
-      title="Bird sprite"
-      role="img"
-      className={`bird-sprite ${isInvincible ? "bird-invincible" : ""}`}
-    />
+    <canvas ref={canvas} />
   );
 };
 

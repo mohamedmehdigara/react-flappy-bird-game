@@ -121,7 +121,7 @@ const App = () => {
     case 'playing':
       return (
         <GameLevel level={level}>
-          <Bird position={bird} ref={birdRef} />
+          <Bird />
           {obstacles.map((obstacle, index) => (
             <Obstacle key={index} type={obstacle.type} position={obstacle.position} />
           ))}

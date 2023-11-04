@@ -1,11 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import GameMenu from './components/GameMenu';
+import App from './App';
 
-const App = () => {
-  return (
-    <GameMenu />
-  );
-};
 
 ReactDOM.render(<App />, document.getElementById('root'));
