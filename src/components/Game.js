@@ -36,16 +36,21 @@ const Game = () => {
     };
   }, [birdPosition]);
 
-  // Added a function to handle game over.
+  // Improved the handleGameOver function to handle the game over logic.
   const handleGameOver = () => {
-    // TODO: Implement game over logic here.
-    alert('Game over!');
+    // Restart the game.
+    setBirdPosition({ top: 0 });
+
+    // TODO: Implement a leaderboard to store the player's high score.
   };
 
   // Added a callback to the Bird component to handle game over.
   return (
     <GameContainer>
-      <Bird position={memoizedBirdPosition} onGameOver={handleGameOver} />
+      <Bird
+        position={memoizedBirdPosition}
+        onGameOver={handleGameOver}
+      />
     </GameContainer>
   );
 };

@@ -12,11 +12,16 @@ const LeaderboardContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 `;
 
 const LeaderboardItem = styled.div`
-  font-size: 20px;
+  font-size: 16px;
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const Leaderboard = ({ scores }) => {
@@ -27,11 +32,16 @@ const Leaderboard = ({ scores }) => {
   return (
     <LeaderboardContainer className="leaderboard-container">
       <h1>Leaderboard</h1>
-      {sortedScores.map((score, index) => (
-        <LeaderboardItem key={index} title={score.name}>
-          {score.name}: {score.score}
-        </LeaderboardItem>
-      ))}
+      <ul>
+        {sortedScores.map((score, index) => (
+          <LeaderboardItem key={index}>
+            <li>
+              <b>{score.name}:</b> {score.score}
+            </li>
+            <li>{index + 1}</li>
+          </LeaderboardItem>
+        ))}
+      </ul>
     </LeaderboardContainer>
   );
 };
