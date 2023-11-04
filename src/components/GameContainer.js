@@ -17,7 +17,7 @@ const GameContainer = styled.div`
 const MyGameContainer = () => {
   return (
     <GameContainer>
-      <Game />
+      
     </GameContainer>
   );
 };

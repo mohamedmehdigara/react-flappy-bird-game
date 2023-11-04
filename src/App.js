@@ -112,25 +112,16 @@ const App = () => {
     };
   }, [checkForCollision]);
 
-  // Render the game based on the game state.
-  switch (gameState) {
-    case 'menu':
-      return (
-        <GameMenu onStartGame={startGame} />
-      );
-    case 'playing':
-      return (
-        <GameLevel level={level}>
-          <Bird />
-          {obstacles.map((obstacle, index) => (
-            <Obstacle key={index} type={obstacle.type} position={obstacle.position} />
-          ))}
-          {powerUps.map((powerUp, index) => (
-            <PowerUp key={index} type={powerUp.type} position={powerUp.position} />
-          ))}
-          <Leaderboard scores={scores} />
-        </GameLevel>
-      );
-    
-          }}
+  // Render all of the components unconditionally.
+  return (
+    <div>
+      <Bird />
+      <Obstacle />
+      <PowerUp />
+      <Leaderboard />
+      <GameLevel />
+      <GameMenu />
+    </div>
+  );
+};
 export default App;

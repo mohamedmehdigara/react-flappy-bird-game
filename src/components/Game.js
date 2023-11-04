@@ -1,13 +1,16 @@
-import React, { useEffect, useMemo } from 'react';
-import Bird from './Bird';
-import GameContainer from './GameContainer';
+import React, { useState, useEffect } from 'react';
 
 const Game = () => {
-  const [birdPosition, setBirdPosition] = React.useState({
+  const [birdPosition, setBirdPosition] = useState({
     top: 0,
   });
 
-  const memoizedBirdPosition = useMemo(() => birdPosition, [birdPosition]);
+  const handleGameOver = () => {
+    // Restart the game.
+    setBirdPosition({ top: 0 });
+
+    // TODO: Implement a leaderboard to store the player's high score.
+  };
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -36,26 +39,8 @@ const Game = () => {
     };
   }, [birdPosition]);
 
-  // Improved the handleGameOver function to handle the game over logic.
-  const handleGameOver = () => {
-    // Restart the game.
-    setBirdPosition({ top: 0 });
-
-    // TODO: Implement a leaderboard to store the player's high score.
-
-    // Return true to indicate that the game is over.
-    return true;
-  };
-
-  // Added a callback to the Bird component to handle game over.
-  return (
-    <GameContainer>
-      <Bird
-        position={memoizedBirdPosition}
-        onGameOver={handleGameOver}
-      />
-    </GameContainer>
-  );
+  // This component does not render anything.
+  return null;
 };
 
 export default Game;
