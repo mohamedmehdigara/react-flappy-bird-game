@@ -3,9 +3,12 @@ import Bird from './components/Bird';
 import Obstacle from './components/Obstacle';
 import PowerUp from './components/PowerUp';
 import Leaderboard from './components/Leaderboard';
+import GameLevel from './components/GameLevel';
+import GameMenu from './components/GameMenu';
 
 const App = () => {
-  // Define the state variables.
+  const [gameState, setGameState] = useState('menu');
+  const [level, setLevel] = useState(1);
   const [bird, setBird] = useState({ top: 0 });
   const [birdIsInvincible, setBirdIsInvincible] = useState(false);
   const [obstacles, setObstacles] = useState([
@@ -88,6 +91,10 @@ const App = () => {
     ]);
   };
 
+  const startGame = () => {
+    setGameState('playing');
+  };
+
   // Use the useEffect hook to check for collisions every 20 milliseconds and update the bird's position.
   useEffect(() => {
     const interval = setInterval(checkForCollision, 20);
@@ -105,19 +112,25 @@ const App = () => {
     };
   }, [checkForCollision]);
 
-  // Render the game.
-  return (
-    <div>
-      <Bird position={bird} ref={birdRef} />
-      {obstacles.map((obstacle, index) => (
-        <Obstacle key={index} type={obstacle.type} position={obstacle.position} />
-      ))}
-      {powerUps.map((powerUp, index) => (
-        <PowerUp key={index} type={powerUp.type} position={powerUp.position} />
-      ))}
-      <Leaderboard scores={scores} />
-    </div>
-  );
-};
-
+  // Render the game based on the game state.
+  switch (gameState) {
+    case 'menu':
+      return (
+        <GameMenu onStartGame={startGame} />
+      );
+    case 'playing':
+      return (
+        <GameLevel level={level}>
+          <Bird position={bird} ref={birdRef} />
+          {obstacles.map((obstacle, index) => (
+            <Obstacle key={index} type={obstacle.type} position={obstacle.position} />
+          ))}
+          {powerUps.map((powerUp, index) => (
+            <PowerUp key={index} type={powerUp.type} position={powerUp.position} />
+          ))}
+          <Leaderboard scores={scores} />
+        </GameLevel>
+      );
+    
+          }}
 export default App;
