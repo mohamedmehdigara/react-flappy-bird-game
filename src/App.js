@@ -5,9 +5,13 @@ import PowerUp from './components/PowerUp';
 import Leaderboard from './components/Leaderboard';
 import GameLevel from './components/GameLevel';
 import GameMenu, {onStartGame} from './components/GameMenu';
+import { setGameState } from './Utils';
+
 
 const App = () => {
+
   const [gameState, setGameState] = useState('menu');
+  
   const [level, setLevel] = useState(1);
   const [bird, setBird] = useState({ top: 0 });
   const [birdIsInvincible, setBirdIsInvincible] = useState(false);
@@ -95,6 +99,9 @@ const App = () => {
     setGameState('playing');
   };
 
+   
+    
+
   // Use the useEffect hook to check for collisions every 20 milliseconds and update the bird's position.
   useEffect(() => {
     const interval = setInterval(checkForCollision, 20);
@@ -111,6 +118,9 @@ const App = () => {
       updateBirdPosition();
     };
   }, [checkForCollision]);
+
+
+    
 
   // Render all of the components unconditionally.
   return (

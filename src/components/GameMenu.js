@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import GameLevel from './GameLevel';
-import { setGameState } from '../App';
-import startGameTimer from './startGameTimer';
-import renderGameComponents from './renderGameComponents';
+import  {setGameState, startGameTimer, renderGameComponents}  from '../Utils';
+
 
 const GameMenuContainer = styled.div`
   width: 100%;
@@ -35,6 +34,10 @@ export function onStartGame() {
   // Render the game components.
   renderGameComponents();
 }
+
+
+
+
 
 
 const GameMenu = ({ onStartGame }) => {
