@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import GameLevel from './GameLevel';
-import  {setGameState, startGameTimer, renderGameComponents}  from '../Utils';
+import  {useSetGameState, useStartGameTimer, useRenderGameComponents}  from '../Utils';
 
 
 const GameMenuContainer = styled.div`
@@ -26,13 +26,13 @@ const GameMenuButton = styled.button`
 
 export function onStartGame() {
   // Reset the game state.
-  setGameState('playing');
+  useSetGameState('playing');
 
   // Start the game timer.
-  startGameTimer();
+  useStartGameTimer();
 
   // Render the game components.
-  renderGameComponents();
+  useRenderGameComponents();
 }
 
 
