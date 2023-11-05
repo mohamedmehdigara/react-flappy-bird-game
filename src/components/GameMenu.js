@@ -24,31 +24,33 @@ const GameMenuButton = styled.button`
   cursor: pointer;
 `;
 
-export function onStartGame() {
-  // Reset the game state.
+
+
+const onStartGame = () => {
   useSetGameState('playing');
-
-  // Start the game timer.
-  useStartGameTimer();
-
-  // Render the game components.
-  useRenderGameComponents();
-}
+};
 
 
+const GameMenu = () => {
+  const { setGameState } = useSetGameState();
+  const timer = useStartGameTimer();
+  const gameComponents = useRenderGameComponents();
+
+   
+  
+  
 
 
-
-
-const GameMenu = ({ onStartGame }) => {
   return (
-    <GameMenuContainer>
+    <div>
       <h1>Flappy Bird</h1>
-      <GameMenuButton onClick={onStartGame}>Start Game</GameMenuButton>
-      <GameLevel level={1} />
-      <GameLevel level={2} />
-    </GameMenuContainer>
+      <button onClick={onStartGame}>Start Game</button>
+      {gameComponents}
+    </div>
   );
 };
+
+
+export { onStartGame };
 
 export default GameMenu;
