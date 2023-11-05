@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Bird from "./Bird";
 
 const Game = () => {
   const [birdPosition, setBirdPosition] = useState({
@@ -39,8 +40,12 @@ const Game = () => {
     };
   }, [birdPosition]);
 
-  // This component does not render anything.
-  return null;
+  // Render a component that displays the bird's position.
+  return (
+    <div style={{ position: 'absolute', top: birdPosition.top }}>
+      <Bird />
+    </div>
+  );
 };
 
 export default Game;

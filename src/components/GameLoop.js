@@ -8,9 +8,18 @@ const GameLoop = () => {
     birdPosition: { x: 100, y: 100 },
     pipes: [],
   });
+  const [birdVelocity, setBirdVelocity] = useState({ x: 0, y: 0 });
+
 
   const updateBirdPosition = () => {
-    // Update the bird's position here.
+    // Calculate the bird's new position based on its current position, velocity, and acceleration.
+    const newBirdPosition = {
+      x: birdPosition.x + birdVelocity.x,
+      y: birdPosition.y + birdVelocity.y,
+    };
+  
+    // Set the bird's new position.
+    setBirdPosition(newBirdPosition);
   };
 
   // Detect collisions
