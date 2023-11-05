@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import GameLevel from './GameLevel';
+import { setGameState } from '../App';
+import startGameTimer from './startGameTimer';
+import renderGameComponents from './renderGameComponents';
 
 const GameMenuContainer = styled.div`
   width: 100%;
@@ -22,13 +25,17 @@ const GameMenuButton = styled.button`
   cursor: pointer;
 `;
 
-export
- 
-function
- 
-onStartGame() {
-  // ...
+export function onStartGame() {
+  // Reset the game state.
+  setGameState('playing');
+
+  // Start the game timer.
+  startGameTimer();
+
+  // Render the game components.
+  renderGameComponents();
 }
+
 
 const GameMenu = ({ onStartGame }) => {
   return (
