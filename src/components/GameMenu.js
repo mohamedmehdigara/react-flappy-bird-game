@@ -1,7 +1,25 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import GameLevel from './GameLevel';
-import { useSetGameState, useStartGameTimer, useRenderGameComponents } from '../Utils';
+import { useSetGameState, useRenderGameComponents } from '../Utils';
+
+
+
+export const useOnStartGameTimer = () => {
+  const [isGameStarted, setIsGameStarted] = useState(false);
+
+  const onStartGame = () => {
+    setIsGameStarted(true);
+  };
+
+  const SetGameState = useSetGameState();
+
+  return {
+    onStartGame,
+    isGameStarted,
+  };
+};
+
 
 const GameMenuContainer = styled.div`
   width: 100%;
@@ -23,39 +41,22 @@ const GameMenuButton = styled.button`
   cursor: pointer;
 `;
 
-const useOnStartGameTimer = () => {
-  const [isGameStarted, setIsGameStarted] = useState(false);
-  const SetGameState = useSetGameState();
-
-
-  const onStartGame = () => {
-    setIsGameStarted(true);
-  };
-
-
-  return {
-    onStartGame,
-    isGameStarted,
-  };
-};
-
 const GameMenu = () => {
   const { onStartGame } = useOnStartGameTimer();
   const gameComponents = useRenderGameComponents();
 
   if (!onStartGame.isGameStarted) {
+    // Return null to prevent the game components from being rendered before the game is started.
     return null;
   }
 
   return (
     <div>
+      <button onClick={onStartGame}>Start Game</button>
       <h1>Flappy Bird</h1>
-      <button onClick={onStartGame.onStartGame}>Start Game</button>
       {gameComponents}
     </div>
   );
 };
-
-export { useOnStartGameTimer };
 
 export default GameMenu;
