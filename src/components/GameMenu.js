@@ -26,7 +26,8 @@ const GameMenuButton = styled.button`
 
 
 
-const onStartGame = () => {
+
+const useOnStartGameTimer = () => {
   useSetGameState('playing');
 };
 
@@ -36,7 +37,6 @@ const GameMenu = () => {
   const timer = useStartGameTimer();
   const gameComponents = useRenderGameComponents();
 
-   
   
   
 
@@ -44,13 +44,13 @@ const GameMenu = () => {
   return (
     <div>
       <h1>Flappy Bird</h1>
-      <button onClick={onStartGame}>Start Game</button>
+      <button onClick={useOnStartGameTimer}>Start Game</button>
       {gameComponents}
     </div>
   );
 };
 
 
-export { onStartGame };
+export { useOnStartGameTimer };
 
 export default GameMenu;

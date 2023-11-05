@@ -4,7 +4,7 @@ import Obstacle from './components/Obstacle';
 import PowerUp from './components/PowerUp';
 import Leaderboard from './components/Leaderboard';
 import GameLevel from './components/GameLevel';
-import GameMenu, {onStartGame} from './components/GameMenu';
+import GameMenu, {useOnStartGameTimer} from './components/GameMenu';
 import { setGameState } from './Utils';
 
 
@@ -130,7 +130,7 @@ const App = () => {
       <PowerUp />
       <Leaderboard />
       <GameLevel />
-      <GameMenu onStartGame={onStartGame} />
+      <GameMenu useOnStartGameTimer={useOnStartGameTimer} />
       
     </div>
   );
