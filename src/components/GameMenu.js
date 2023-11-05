@@ -1,25 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import GameLevel from './GameLevel';
-import { useSetGameState, useRenderGameComponents } from '../Utils';
-
-
-
-export const useOnStartGameTimer = () => {
-  const [isGameStarted, setIsGameStarted] = useState(false);
-
-  const onStartGame = () => {
-    setIsGameStarted(true);
-  };
-
-  const SetGameState = useSetGameState();
-
-  return {
-    onStartGame,
-    isGameStarted,
-  };
-};
-
+import { useSetGameState, useStartGameTimer, useRenderGameComponents } from '../Utils';
 
 const GameMenuContainer = styled.div`
   width: 100%;
@@ -41,23 +23,30 @@ const GameMenuButton = styled.button`
   cursor: pointer;
 `;
 
+export const useOnStartGameTimer = () => {
+  const [isGameStarted, setIsGameStarted] = useState(false);
+
+  const onStartGame = () => {
+    setIsGameStarted(true);
+  };
+
+  const SetGameState = useSetGameState();
+
+  return {
+    onStartGame,
+    isGameStarted,
+  };
+};
+
 const GameMenu = () => {
   const { onStartGame } = useOnStartGameTimer();
-  const gameComponents = useRenderGameComponents();
-
-  if (!onStartGame.isGameStarted) {
-    // Return a loading spinner or a message to the user that the game is not yet started.
-    return <div>Loading...</div>;
-  }
-
-
-// Start the game loop.
+  const gameComponents = useRenderGameComponents(); // Define the `gameComponents` variable here
 
   return (
     <div>
       <button onClick={onStartGame}>Start Game</button>
       <h1>Flappy Bird</h1>
-      {gameComponents}
+      {gameComponents} 
     </div>
   );
 };
