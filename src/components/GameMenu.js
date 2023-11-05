@@ -46,9 +46,12 @@ const GameMenu = () => {
   const gameComponents = useRenderGameComponents();
 
   if (!onStartGame.isGameStarted) {
-    // Return null to prevent the game components from being rendered before the game is started.
-    return null;
+    // Return a loading spinner or a message to the user that the game is not yet started.
+    return <div>Loading...</div>;
   }
+
+
+// Start the game loop.
 
   return (
     <div>
