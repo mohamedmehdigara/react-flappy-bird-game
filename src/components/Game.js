@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Bird from "./Bird";
 
-const Game = () => {
+const Game = (gameState) => {
   const [birdPosition, setBirdPosition] = useState({
     top: 0,
   });
@@ -43,7 +43,7 @@ const Game = () => {
   // Render a component that displays the bird's position.
   return (
     <div style={{ position: 'absolute', top: birdPosition.top }}>
-      <Bird />
+      {gameState === 'playing' && <Bird />}
     </div>
   );
 };

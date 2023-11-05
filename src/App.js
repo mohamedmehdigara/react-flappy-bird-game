@@ -6,6 +6,7 @@ import Leaderboard from './components/Leaderboard';
 import GameLevel from './components/GameLevel';
 import Obstacle from './components/Obstacle';
 import PowerUp from './components/PowerUp';
+import Game from './components/Game';
 
 const App = () => {
   const [gameState, setGameState] = useState('menu');
@@ -25,6 +26,7 @@ const App = () => {
         <Leaderboard />
         <GameLevel />
         <GameLoop />
+        <Game gameState={gameState} />
       </div>
     );
   } else {
