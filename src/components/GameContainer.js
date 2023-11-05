@@ -15,9 +15,12 @@ const GameContainer = styled.div`
 `;
 
 const MyGameContainer = () => {
+  const canvasRef = useRef(null);
+
   return (
     <GameContainer>
-      
+      <canvas ref={canvasRef} />
+      <Game canvas={canvasRef.current} />
     </GameContainer>
   );
 };
