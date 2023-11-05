@@ -6,6 +6,8 @@ import Leaderboard from './components/Leaderboard';
 import GameLevel from './components/GameLevel';
 import GameMenu, {useOnStartGameTimer} from './components/GameMenu';
 import { setGameState } from './Utils';
+import GameLoop from './components/GameLoop';
+
 
 
 const App = () => {
@@ -120,6 +122,30 @@ const App = () => {
   }, [checkForCollision]);
 
 
+  if (gameState === 'menu') {
+    return (
+      <GameMenu
+        useOnStartGameTimer={useOnStartGameTimer}
+        startGame={startGame}
+
+      />
+    );
+  } else if (gameState === 'playing') {
+    return (
+      <GameLoop
+        gameState={gameState}
+        bird={bird}
+        birdIsInvincible={birdIsInvincible}
+        obstacles={obstacles}
+        powerUps={powerUps}
+        handleBirdCollision={handleBirdCollision}
+      />
+    );
+  } 
+
+  // Return null if the game state is invalid.
+  return null;
+
     
 
   // Render all of the components unconditionally.
@@ -130,7 +156,6 @@ const App = () => {
       <PowerUp />
       <Leaderboard />
       <GameLevel />
-      <GameMenu useOnStartGameTimer={useOnStartGameTimer} />
       
     </div>
   );

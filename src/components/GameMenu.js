@@ -31,6 +31,9 @@ export const useOnStartGameTimer = () => {
   };
 
   const SetGameState = useSetGameState();
+  setTimeout(() => {
+    onStartGame();
+  }, 1000);
 
   return {
     onStartGame,
@@ -44,7 +47,7 @@ const GameMenu = () => {
 
   return (
     <div>
-      <button onClick={onStartGame}>Start Game</button>
+      <button onClick={() => onStartGame()}>Start Game</button>
       <h1>Flappy Bird</h1>
       {gameComponents} 
     </div>
