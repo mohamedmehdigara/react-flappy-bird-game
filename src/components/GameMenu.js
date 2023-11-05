@@ -25,12 +25,13 @@ const GameMenuButton = styled.button`
 
 const useOnStartGameTimer = () => {
   const [isGameStarted, setIsGameStarted] = useState(false);
+  const SetGameState = useSetGameState();
+
 
   const onStartGame = () => {
     setIsGameStarted(true);
   };
 
-  const useSetGameState = useSetGameState();
 
   return {
     onStartGame,
