@@ -13,22 +13,17 @@ const GameLevelContainer = styled.div`
 
 const GameLevel = ({ level }) => {
   // Render the game level based on the level number.
-  switch (level) {
-    case 1:
-      return (
-        <GameLevelContainer>
-          <h1>Level 1</h1>
-        </GameLevelContainer>
-      );
-    case 2:
-      return (
-        <GameLevelContainer>
-          <h1>Level 2</h1>
-        </GameLevelContainer>
-      );
-    default:
-      return null;
-  }
+  const levels = [
+    <h1>Level 1</h1>,
+    <h1>Level 2</h1>,
+    <h1>Level 3</h1>,
+  ];
+
+  return (
+    <GameLevelContainer>
+      {levels[level]}
+    </GameLevelContainer>
+  );
 };
 
 export default GameLevel;

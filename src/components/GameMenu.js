@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import GameLevel from './GameLevel';
 import { useSetGameState, useStartGameTimer, useRenderGameComponents } from '../Utils';
+import { Link } from 'react-router-dom';
 
 const GameMenuContainer = styled.div`
   width: 100%;
@@ -47,7 +48,7 @@ const GameMenu = () => {
 
   return (
     <div>
-      <button onClick={() => onStartGame()}>Start Game</button>
+      <Link to="/gameLevel">Start Game</Link>
       <h1>Flappy Bird</h1>
       {gameComponents} 
     </div>
