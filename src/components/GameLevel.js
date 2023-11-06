@@ -17,7 +17,7 @@ const GameLevelTitle = styled.h1`
   color: black;
 `;
 
-const GameLevel = () => {
+const GameLevel = ({ level }) => {
   // Add this code to the beginning of the component:
   console.log('Rendering GameLevel component');
 
@@ -28,11 +28,10 @@ const GameLevel = () => {
   ];
 
   return (
-    <div>
-      <h1>{levels}</h1>
-    </div>
+    <GameLevelContainer>
+      <GameLevelTitle>{levels}</GameLevelTitle>
+    </GameLevelContainer>
   );
-  
 };
 
 export default GameLevel;
