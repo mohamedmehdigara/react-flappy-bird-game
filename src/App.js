@@ -15,11 +15,11 @@ function App  ()  {
 
   const startGame = () => {
     setGameState('playing');
-    navigate('/game');
+    navigate('/Game');
   };
 
   return (
-      <Routes>
+      <Routes >
         {gameState === 'menu' && <Route path="/" element={<GameMenu startGame={startGame} />}/>}
         {gameState === 'playing' && (
           <div>

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Game from './Game';
 
 const GameLoop = () => {
     const [birdPosition, setBirdPosition] = useState({ x: 100, y: 100 });
@@ -58,7 +60,7 @@ const GameLoop = () => {
   return (
     <div>
       <h1>Flappy Bird</h1>
-      <button onClick={() => setGameState({ ...gameState, birdPosition: { x: 100, y: 100 } })}>Start Game</button>
+      <Link to="/Game">Start Game</Link>
     </div>
   );
 };
