@@ -1,28 +1,36 @@
-import React from 'react';
-import styled from 'styled-components';
-import Game from './Game';
+import React, { useState, useEffect } from 'react';
 
-const GameContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f5f5f5;
-  border: 1px solid #ccc;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-`;
-
-const MyGameContainer = () => {
+const GameContainer = () => {
   const canvasRef = useRef(null);
 
+  // Create a bird component.
+  const Bird = () => {
+    const [birdPosition, setBirdPosition] = useState({ x: 100, y: 100 });
+
+    useEffect(() => {
+      // Update the bird's position every frame.
+      const updateBirdPosition = () => {
+        setBirdPosition({ ...birdPosition, y: birdPosition.y + 1 });
+      };
+
+      requestAnimationFrame(updateBirdPosition);
+
+      return () => cancelAnimationFrame(updateBirdPosition);
+    }, [birdPosition]);
+
+    return (
+      <mesh position={birdPosition}>
+        <boxBufferGeometry attach="geometry" />
+        <meshBasicMaterial attach="material" color="black" />
+      </mesh>
+    );
+  };
+
   return (
-    <GameContainer>
-      <canvas ref={canvasRef} />
-      <Game canvas={canvasRef.current} />
-    </GameContainer>
+    <canvas ref={canvasRef}>
+      <Bird />
+    </canvas>
   );
 };
 
-export default MyGameContainer;
+export default GameContainer;

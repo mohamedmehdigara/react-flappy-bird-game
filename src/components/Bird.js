@@ -1,31 +1,22 @@
-import React from "react";
-import { useAnimationFrame, useFrame } from "@react-three/fiber";
+import React, { useState, useEffect, useThree } from 'react';
+import * as THREE from "three";
 
 const Bird = () => {
-  const canvas = React.useRef(null);
-  const birdPosition = React.useState({ x: 100, y: 100 });
+  const scene = useThree();
 
-  // Use a different hook from the `@react-three/fiber` package
-  useFrame(() => {
-    const ctx = canvas.current.getContext('2d');
+  const bird = new THREE.Mesh(new THREE.BoxBufferGeometry(), new THREE.MeshBasicMaterial({ color: "black" }));
 
-    // Update the bird's position
-    birdPosition.current.y += 1;
-
-    // Draw the bird
-    ctx.fillStyle = '#000000';
-    ctx.beginPath();
-    ctx.moveTo(birdPosition.current.x, birdPosition.current.y);
-    ctx.lineTo(birdPosition.current.x + 100, birdPosition.current.y);
-    ctx.lineTo(birdPosition.current.x + 50, birdPosition.current.y + 50);
-    ctx.closePath();
-    ctx.fill();
-  });
+  useEffect(() => {
+    // Add the bird to the scene.
+    scene.add(bird);
+  }, []);
 
   return (
-    <canvas ref={canvas} />
+    <mesh position={birdPosition}>
+      <boxBufferGeometry attach="geometry" />
+      <meshBasicMaterial attach="material" color="black" />
+    </mesh>
   );
 };
 
-// Export the `Bird` component
 export default Bird;
