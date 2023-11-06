@@ -1,29 +1,14 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
 
-const GameLevelContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-`;
-
-const GameLevel = ({ level }) => {
-  // Render the game level based on the level number.
-  const levels = [
-    <h1>Level 1</h1>,
-    <h1>Level 2</h1>,
-    <h1>Level 3</h1>,
-  ];
-
+function GameLevel() {
   return (
-    <GameLevelContainer>
-      {levels[level]}
-    </GameLevelContainer>
-  );
-};
+    <div>
+      <h1>Level 1</h1>
+      <h1>Level 2</h1>
+      <h1>Level 3</h1>
 
-export default GameLevel;
+    </div>
+  )
+}
+
+export default GameLevel

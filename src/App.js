@@ -24,13 +24,13 @@ function App  ()  {
          <Route path="/" element={<GameMenu startGame={startGame} />}/>
         
           
-         <Route path="/game" element={<Bird />}/>
-         <Route path="/game" element={ <Obstacle />}/>
-         <Route path="/game" element={<PowerUp />}/>
-         <Route path="/game" element={<Leaderboard />}/>
-         <Route path="/game" element={<GameLevel />}/>
-         <Route path="/game" element={<GameLoop />}/>
-         <Route path="/game" element={<Game gameState={gameState} />}/>
+         <Route path="/Bird" element={<Bird />}/>
+         <Route path="/Obstacle" element={ <Obstacle />}/>
+         <Route path="/PowerUp" element={<PowerUp />}/>
+         <Route path="/Leaderboard" element={<Leaderboard />}/>
+         <Route path="/GameLevel" element={<GameLevel />}/>
+         <Route path="/GameLoop" element={<GameLoop />}/>
+         <Route path="/Game" element={<Game gameState={gameState} />}/>
           
         
       </Routes>
