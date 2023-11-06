@@ -60,7 +60,7 @@ const GameLoop = () => {
   return (
     <div>
       <h1>Flappy Bird</h1>
-      <Link to="/Game">Start Game</Link>
+      <Link to="/game">Start Game</Link>
     </div>
   );
 };
