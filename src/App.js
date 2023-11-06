@@ -30,7 +30,7 @@ function App  ()  {
          <Route path="/Leaderboard" element={<Leaderboard />}/>
          <Route path="/GameLevel" element={<GameLevel />}/>
          <Route path="/GameLoop" element={<GameLoop />}/>
-         <Route path="/Game" element={<Game gameState={gameState} />}/>
+         <Route path="/Game" element={<Game  />}/>
           
         
       </Routes>
