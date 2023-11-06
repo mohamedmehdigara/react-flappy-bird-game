@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Bird from "./Bird";
 
 const Game = (gameState) => {
-  const [birdPosition, setBirdPosition] = useState({
-    top: 0,
-  });
+  const [birdPosition, setBirdPosition] = useState({ top: 0 });
 
   const handleGameOver = () => {
     // Restart the game.
@@ -14,36 +12,25 @@ const Game = (gameState) => {
   };
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
-      switch (event.keyCode) {
-        case 38: // Up arrow
-          setBirdPosition({
-            ...birdPosition,
-            top: birdPosition.top - 10,
-          });
-          break;
-        case 40: // Down arrow
-          setBirdPosition({
-            ...birdPosition,
-            top: birdPosition.top + 10,
-          });
-          break;
-        default:
-          break;
-      }
+    // Update the bird's position every frame.
+    const updateBirdPosition = () => {
+      // TODO: Add collision detection here.
+      setBirdPosition({ top: birdPosition.top + 1 });
     };
 
-    window.addEventListener('keydown', handleKeyDown);
+    // Request that the browser call updateBirdPosition on the next frame.
+    requestAnimationFrame(updateBirdPosition);
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      // Cancel the requestAnimationFrame callback.
+      cancelAnimationFrame(updateBirdPosition);
     };
   }, [birdPosition]);
 
-  // Render a component that displays the bird's position.
+  // Render the bird component.
   return (
     <div style={{ position: 'absolute', top: birdPosition.top }}>
-      {gameState === 'playing' && <Bird />}
+      <Bird />
     </div>
   );
 };
