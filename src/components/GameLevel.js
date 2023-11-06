@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Game from './Game';
 
 const GameLevelContainer = styled.div`
   width: 100%;
@@ -27,9 +28,11 @@ const GameLevel = ({ level }) => {
     'Level 3',
   ];
 
+  // Render the corresponding game level.
   return (
     <GameLevelContainer>
       <GameLevelTitle>{levels}</GameLevelTitle>
+      <Game gameState="playing" />
     </GameLevelContainer>
   );
 };
