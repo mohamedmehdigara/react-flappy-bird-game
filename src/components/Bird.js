@@ -1,32 +1,17 @@
-import React, { useState, useEffect, useThree, useMemo } from 'react';
-import * as THREE from "three/src/Three.js";
-
-const birdPosition = { x: 100, y: 100 };
+import React from "react";
 
 const Bird = () => {
-  const scene = useThree();
-
-  const bird = useMemo(() => new THREE.Mesh(new THREE.BoxBufferGeometry(), new THREE.MeshBasicMaterial({ color: "black" })), []);
-
-  useEffect(() => {
-    // Add the bird to the scene.
-    scene.add(bird);
-
-    // Update the bird's position every frame.
-    const updateBirdPosition = () => {
-      birdPosition.y += 1;
-    };
-
-    requestAnimationFrame(updateBirdPosition);
-
-    return () => cancelAnimationFrame(updateBirdPosition);
-  }, []);
-
   return (
-    <mesh position={birdPosition}>
-      <boxBufferGeometry attach="geometry" />
-      <meshBasicMaterial attach="material" color="black" />
-    </mesh>
+    <div
+      style={{
+        position: "absolute",
+        top: 100,
+        left: 100,
+        width: 20,
+        height: 20,
+        backgroundColor: "black",
+      }}
+    />
   );
 };
 
