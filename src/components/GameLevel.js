@@ -20,6 +20,9 @@ const GameLevelContainer = styled.div`
 
   // Set the background color of the container to white.
   background-color: white;
+
+  // Add a border to the container.
+  border: 1px solid black;
 `;
 
 // Define the `GameLevelTitle` component using styled-components:
@@ -53,10 +56,7 @@ const GameLevel = ({ level }) => {
   return (
     // Wrap the game level in a `GameLevelContainer` component.
     <GameLevelContainer>
-       
       <GameLevelTitle>{gameLevel}</GameLevelTitle>
-
-      
       <Game gameState="playing" />
     </GameLevelContainer>
   );
