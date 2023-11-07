@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import Game from './Game';
+import React from "react";
+import styled from "styled-components";
+import Game from "./Game";
 
 const GameLevelContainer = styled.div`
   width: 100%;
@@ -19,19 +19,20 @@ const GameLevelTitle = styled.h1`
 `;
 
 const GameLevel = ({ level }) => {
-  // Add this code to the beginning of the component:
-  console.log('Rendering GameLevel component');
+  // Add this code to the beginning of the component to log the rendering of the component:
+  console.log("Rendering GameLevel component");
 
+  // Define the levels:
   const levels = [
-    'Level 1',
-    'Level 2',
-    'Level 3',
+    "Level 1",
+    "Level 2",
+    "Level 3",
   ];
 
-  // Render the corresponding game level.
+  // Render the corresponding game level based on the `level` prop:
   return (
     <GameLevelContainer>
-      <GameLevelTitle>{levels}</GameLevelTitle>
+      <GameLevelTitle>{levels[level]}</GameLevelTitle>
       <Game gameState="playing" />
     </GameLevelContainer>
   );
