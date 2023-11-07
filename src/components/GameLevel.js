@@ -5,7 +5,7 @@ import Game from "./Game";
 // Define the `GameLevelContainer` component using styled-components:
 
 // Define the `GameLevel` component:
-const GameLevel = ({ level, loading }) => {
+const GameLevel = ({ level, loading, score, enemiesRemaining }) => {
   const GameLevelContainer = styled.div`
   // Set the width and height of the container to 100%.
   width: 100%;
@@ -65,6 +65,37 @@ const RestartButton = styled.button`
 
   // Set the cursor of the button to pointer.
   cursor: pointer;
+
+  // Disable the button while the game level is loading.
+  pointer-events: ${loading ? "none" : "auto"};
+`;
+
+// Define the `ScoreComponent` component:
+const ScoreComponent = styled.div`
+  // Position the score component in the top left corner of the game level container.
+  position: absolute;
+  top: 10px;
+  left: 10px;
+
+  // Set the font size of the score text to 24px.
+  font-size: 24px;
+
+  // Set the color of the score text to black.
+  color: black;
+`;
+
+// Define the `EnemiesRemainingComponent` component:
+const EnemiesRemainingComponent = styled.div`
+  // Position the enemies remaining component in the top right corner of the game level container.
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  // Set the font size of the enemies remaining text to 24px.
+  font-size: 24px;
+
+  // Set the color of the enemies remaining text to black.
+  color: black;
 `;
 
   // Log the rendering of the component to the console.
@@ -80,13 +111,13 @@ const RestartButton = styled.button`
   // Get the corresponding game level based on the `level` prop.
   const gameLevel = levels[level];
 
-  // Render the corresponding game level.
   return (
-    // Wrap the game level in a `GameLevelContainer` component.
     <GameLevelContainer key={level}>
       {loading && <div>Loading...</div>}
       {!loading && (
         <>
+          <ScoreComponent>Score: {score}</ScoreComponent>
+          <EnemiesRemainingComponent>Enemies Remaining: {enemiesRemaining}</EnemiesRemainingComponent>
           <GameLevelTitle>{gameLevel}</GameLevelTitle>
           <Game gameState="playing" />
           <RestartButton onClick={() => window.location.reload()}>Restart</RestartButton>
