@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Game from "./Game";
 
@@ -6,6 +6,7 @@ import Game from "./Game";
 
 // Define the `GameLevel` component:
 const GameLevel = ({ level, loading, score, enemiesRemaining }) => {
+
   const GameLevelContainer = styled.div`
   // Set the width and height of the container to 100%.
   width: 100%;
@@ -98,6 +99,8 @@ const EnemiesRemainingComponent = styled.div`
   color: black;
 `;
 
+  const [isGamePaused, setIsGamePaused] = useState(false);
+
   // Log the rendering of the component to the console.
   console.log(`Rendering GameLevel component for level ${level}`);
 
@@ -109,7 +112,7 @@ const EnemiesRemainingComponent = styled.div`
   ];
 
   // Get the corresponding game level based on the `level` prop.
-  const gameLevel = levels[level];
+  const gameLevel = levels[level]
 
   return (
     <GameLevelContainer key={level}>
@@ -119,8 +122,22 @@ const EnemiesRemainingComponent = styled.div`
           <ScoreComponent>Score: {score}</ScoreComponent>
           <EnemiesRemainingComponent>Enemies Remaining: {enemiesRemaining}</EnemiesRemainingComponent>
           <GameLevelTitle>{gameLevel}</GameLevelTitle>
-          <Game gameState="playing" />
-          <RestartButton onClick={() => window.location.reload()}>Restart</RestartButton>
+          // Continue from here
+          <Game
+            gameState={isGamePaused ? "paused" : "playing"}
+            onLevelComplete={() => {
+              // Handle level completion here
+              console.log("Level completed!");
+            }}
+          />
+
+          <PauseButton onClick={() => setIsGamePaused(!isGamePaused)}>
+            {isGamePaused ? "Resume" : "Pause"}
+          </PauseButton>
+
+          <RestartButton onClick={() => window.location.reload()}>
+            Restart
+          </RestartButton>
         </>
       )}
     </GameLevelContainer>
