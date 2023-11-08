@@ -6,6 +6,23 @@ import Game from "./Game";
 
 // Define the `GameLevel` component:
 const GameLevel = ({ level, loading, score, enemiesRemaining }) => {
+  const PauseButton = styled.button`
+  // Set the background color of the button to gray.
+  background-color: gray;
+
+  // Set the color of the button text to black.
+  color: black;
+
+  // Set the padding of the button to 10px.
+  padding: 10px;
+
+  // Set the border radius of the button to 5px.
+  border-radius: 5px;
+
+  // Set the cursor of the button to pointer.
+  cursor: pointer;
+`;
+
 
   const GameLevelContainer = styled.div`
   // Set the width and height of the container to 100%.
@@ -122,7 +139,6 @@ const EnemiesRemainingComponent = styled.div`
           <ScoreComponent>Score: {score}</ScoreComponent>
           <EnemiesRemainingComponent>Enemies Remaining: {enemiesRemaining}</EnemiesRemainingComponent>
           <GameLevelTitle>{gameLevel}</GameLevelTitle>
-          // Continue from here
           <Game
             gameState={isGamePaused ? "paused" : "playing"}
             onLevelComplete={() => {
