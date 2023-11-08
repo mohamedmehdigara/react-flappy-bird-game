@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Game from "./Game";
 import Leaderboard from "./Leaderboard";
 
+
 // Define the `GameLevelContainer` component using styled-components:
 
 // Define the `GameLevel` component:
@@ -206,6 +207,7 @@ border\-radius\: 25px;
 <PowerUp/>
 <Obstacle/>
 <Leaderboard/>
+
         </>
       )}
     </GameLevelContainer>
