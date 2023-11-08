@@ -5,7 +5,24 @@ import Game from "./Game";
 // Define the `GameLevelContainer` component using styled-components:
 
 // Define the `GameLevel` component:
-const GameLevel = ({ level, loading, score, enemiesRemaining }) => {
+const GameLevel = ({ level, loading, score, enemiesRemaining, progress }) => {
+
+  const ProgressBar = styled.div`
+  background-color: #ccc;
+  width: 100%;
+  height: 10px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+`;
+
+const ProgressIndicator = styled.div`
+  background-color: #007bff;
+  width: ${progress}%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+`;
   const PauseButton = styled.button`
   // Set the background color of the button to gray.
   background-color: gray;
@@ -154,6 +171,9 @@ const EnemiesRemainingComponent = styled.div`
           <RestartButton onClick={() => window.location.reload()}>
             Restart
           </RestartButton>
+          <ProgressBar>
+  <ProgressIndicator />
+</ProgressBar>
         </>
       )}
     </GameLevelContainer>
