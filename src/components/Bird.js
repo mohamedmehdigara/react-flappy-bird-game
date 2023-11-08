@@ -18,16 +18,14 @@ const birdBaseStyles = `
   height: 20px;
   width: 20px;
   position: absolute;
+  transform: translateY(0);
 `;
 
 const BirdContainer = styled.div`
   ${birdBaseStyles};
-  position: absolute;
   top: 100px; /* Adjust the initial position as needed */
   transition: transform 0.3s; /* Smooth transition for bird movement */
 `;
-
-
 
 const flapAnimation = keyframes`
   0% {
@@ -41,16 +39,18 @@ const flapAnimation = keyframes`
   }
 `;
 
-
-const AnimatedBird = styled.div`
+const BirdAnimationStyles =styled.div`
   ${birdBaseStyles}
   transform: translateY(-10px);
   animation: ${flapAnimation} 1s infinite alternate;
 `;
 
+const AnimatedBird = styled.div`
+  ${BirdAnimationStyles}
+`;
+
 const StaticBird = styled.div`
   ${birdBaseStyles}
-  transform: translateY(0);
 `;
 
 export default Bird;
