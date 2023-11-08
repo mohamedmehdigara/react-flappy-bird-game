@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const LeaderboardContainer = styled.div`
-  width: 300px;
-  height: 300px;
+  width: 100px;
+  height: 100px;
   position: absolute;
   top: 0;
   left: 500px;
   background-color: white;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   justify-content: center;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);

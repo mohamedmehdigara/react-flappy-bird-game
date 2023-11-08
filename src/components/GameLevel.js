@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Game from "./Game";
+import Leaderboard from "./Leaderboard";
 
 // Define the `GameLevelContainer` component using styled-components:
 
 // Define the `GameLevel` component:
 const GameLevel = ({ level, loading, score, enemiesRemaining, progress }) => {
+  
 
   const ProgressBar = styled.div`
   background-color: #ccc;
@@ -133,6 +135,33 @@ const EnemiesRemainingComponent = styled.div`
   color: black;
 `;
 
+const PowerUp = styled.div`
+position: absolute;
+top: Math.random() \* \(window\.innerHeight \- 100\) \+ 100;
+left\: Math\.random\(\) \* \(window\.innerWidth \- 100\) \+ 100;
+// Set the background color of the power up to green\.
+background\-color\: green;
+// Set the width and height of the power up to 20px\.
+width\: 20px;
+height\: 20px;
+// Set the border radius of the power up to 10px\.
+border\-radius\: 10px;
+\;`
+// Define the \`Obstacle\` component using styled\-components\:
+const Obstacle = styled.div`
+// Position the obstacle in a random location within the game level container\.
+position\: absolute;
+top\: Math\.random\(\) \* \(window\.innerHeight \- 50\) \+ 50;
+left\: Math\.random\(\) \* \(window\.innerWidth \- 100\) \+ 100;
+// Set the background color of the obstacle to red\.
+background\-color\: red;
+// Set the width and height of the obstacle to 50px\.
+width\: 50px;
+height\: 50px;
+// Set the border radius of the obstacle to 25px\.
+border\-radius\: 25px;
+\;`
+
   const [isGamePaused, setIsGamePaused] = useState(false);
 
   // Log the rendering of the component to the console.
@@ -174,6 +203,9 @@ const EnemiesRemainingComponent = styled.div`
           <ProgressBar>
   <ProgressIndicator />
 </ProgressBar>
+<PowerUp/>
+<Obstacle/>
+<Leaderboard/>
         </>
       )}
     </GameLevelContainer>
