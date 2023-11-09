@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Bird from "./Bird";
 
-const Game = (gameState) => {
+const Game = () => {
   const [birdPosition, setBirdPosition] = useState({ top: 0 });
 
   const handleGameOver = () => {
@@ -12,25 +12,41 @@ const Game = (gameState) => {
   };
 
   useEffect(() => {
-    // Update the bird's position every frame.
     const updateBirdPosition = () => {
+      // Calculate the new bird position based on current top.
+      const newTop = birdPosition.top + 1;
+      
       // TODO: Add collision detection here.
-      setBirdPosition({ top: birdPosition.top + 1 });
+      // For example, check if the bird has collided with obstacles or reached the top or bottom of the game area.
+
+      // Update the bird's position only if the game is still running.
+      if (newTop < GAME_AREA_HEIGHT) {
+        setBirdPosition({ top: newTop });
+      } else {
+        // Handle game over when the bird goes out of bounds.
+        handleGameOver();
+      }
+
+      // Request the next frame for the animation.
+      requestAnimationFrame(updateBirdPosition);
     };
 
-    // Request that the browser call updateBirdPosition on the next frame.
+    const GAME_AREA_HEIGHT = 400; // Adjust the game area height as needed.
+
+    // Start the game loop by requesting the first frame.
     requestAnimationFrame(updateBirdPosition);
 
+    // Cleanup the animation frame request when the component unmounts.
     return () => {
-      // Cancel the requestAnimationFrame callback.
       cancelAnimationFrame(updateBirdPosition);
     };
   }, [birdPosition]);
 
-  // Render the bird component.
   return (
-    <div style={{ position: 'absolute', top: birdPosition.top }}>
-      <Bird />
+    <div style={{ position: 'relative', width: '100%', height: '400px', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', top: birdPosition.top }}>
+        <Bird />
+      </div>
     </div>
   );
 };
