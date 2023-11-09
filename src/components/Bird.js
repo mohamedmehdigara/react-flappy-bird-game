@@ -28,25 +28,18 @@ const BirdContainer = styled.div`
 `;
 
 const flapAnimation = keyframes`
-  0% {
+  0%, 100% {
     transform: translateY(-10px) rotate(0deg);
   }
   50% {
     transform: translateY(10px) rotate(45deg);
   }
-  100% {
-    transform: translateY(-10px) rotate(0deg);
-  }
-`;
-
-const BirdAnimationStyles =styled.div`
-  ${birdBaseStyles}
-  transform: translateY(-10px);
-  animation: ${flapAnimation} 1s infinite alternate;
 `;
 
 const AnimatedBird = styled.div`
-  ${BirdAnimationStyles}
+  ${birdBaseStyles}
+  transform: translateY(-10px);
+  animation: ${flapAnimation} 1s infinite alternate;
 `;
 
 const StaticBird = styled.div`
