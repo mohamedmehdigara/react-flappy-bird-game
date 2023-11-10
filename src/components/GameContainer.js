@@ -1,35 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Canvas } from '@react-three/fiber';
 
 const GameContainer = () => {
+  const birdSpeed = 1;
   const canvasRef = useRef(null);
 
-  // Create a bird component.
   const Bird = () => {
-    const [birdPosition, setBirdPosition] = useState({ x: 100, y: 100 });
+    const [birdPosition, setBirdPosition] = useState({ x: 100, y: 100, z: 0 });
 
     useEffect(() => {
-      // Update the bird's position every frame.
       const updateBirdPosition = () => {
-        setBirdPosition({ ...birdPosition, y: birdPosition.y + 1 });
+        setBirdPosition((prevPosition) => ({ ...prevPosition, y: prevPosition.y + birdSpeed }));
       };
 
-      requestAnimationFrame(updateBirdPosition);
+      const animationFrameId = requestAnimationFrame(updateBirdPosition);
 
-      return () => cancelAnimationFrame(updateBirdPosition);
-    }, [birdPosition]);
+      return () => cancelAnimationFrame(animationFrameId);
+    }, []);
 
     return (
       <mesh position={birdPosition}>
-        <boxBufferGeometry attach="geometry" />
+        <boxBufferGeometry attach="geometry" args={[10, 10, 10]} />
         <meshBasicMaterial attach="material" color="black" />
       </mesh>
     );
   };
 
   return (
-    <canvas ref={canvasRef}>
+    <Canvas>
+      <ambientLight />
+      <pointLight position={[10, 10, 10]} />
       <Bird />
-    </canvas>
+    </Canvas>
   );
 };
 
