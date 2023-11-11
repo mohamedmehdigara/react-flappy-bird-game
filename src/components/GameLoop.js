@@ -1,77 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Game from './Game';
 
 const GameLoop = () => {
-  // State for bird position, velocity, and pipes
-  const [birdState, setBirdState] = useState({
-    position: { x: 100, y: 100 },
-    velocity: { x: 0, y: 0 },
-  });
+  const [score, setScore] = useState(0);
+  const [isGameOver, setIsGameOver] = useState(false);
 
-  const [pipes, setPipes] = useState([]);
-
-  // Game loop logic
-  const gameLoop = () => {
-    // Update bird position
-    const newBirdPosition = {
-      x: birdState.position.x + birdState.velocity.x,
-      y: birdState.position.y + birdState.velocity.y,
-    };
-    setBirdState((prevState) => ({ ...prevState, position: newBirdPosition }));
-
-    // Detect collisions
-    detectCollisions();
-
-    // Render game components
-    renderGameComponents();
-
-    // Request the next frame
-    requestAnimationFrame(gameLoop);
-  };
-
-  // Update bird velocity based on user input (e.g., keyboard, mouse, touch)
-  const handleUserInput = (event) => {
-    // TODO: Implement user input handling logic
-  };
-
-  // Detect collisions with pipes
-  const detectCollisions = () => {
-    for (const pipe of pipes) {
-      if (
-        birdState.position.x < pipe.x + pipe.width &&
-        birdState.position.x + birdState.width > pipe.x &&
-        birdState.position.y < pipe.y + pipe.height &&
-        birdState.position.y + birdState.height > pipe.y
-      ) {
-        // Game over logic
-        handleGameOver();
-      }
+  const handleGameLogic = () => {
+    if (!isGameOver) {
+      // Simulate game logic - increase score over time
+      setScore((prevScore) => prevScore + 1);
     }
   };
 
-  // Handle game over
-  const handleGameOver = () => {
-    // TODO: Implement game over logic
-  };
-
-  // Render game components (e.g., bird, pipes)
-  const renderGameComponents = () => {
-    // TODO: Implement game component rendering logic
-  };
-
   useEffect(() => {
-    // Start the game loop on component mount
-    const animationFrameId = requestAnimationFrame(gameLoop);
+    const gameLoopInterval = setInterval(() => {
+      handleGameLogic();
+    }, 1000); // Adjust the interval based on your game logic
 
-    // Cleanup on component unmount
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [birdState, pipes]);
+    return () => {
+      clearInterval(gameLoopInterval);
+    };
+  }, [isGameOver]);
+
+  const handleGameOver = () => {
+    console.log('Game over logic goes here!');
+    // Add your logic for handling game over, e.g., showing a game over screen.
+    setIsGameOver(true);
+  };
 
   return (
     <div>
       <h1>Flappy Bird</h1>
-      <Link to="/gameLevel">Start Game</Link>
+      <p>Score: {score}</p>
+      {!isGameOver && <p>Game is running...</p>}
+      {isGameOver && (
+        <div>
+          <p>Game Over!</p>
+          <Link to="/gameMenu">Return to Menu</Link>
+        </div>
+      )}
     </div>
   );
 };

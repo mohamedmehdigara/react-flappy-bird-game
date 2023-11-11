@@ -1,41 +1,41 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { useStartGameTimer, useRenderGameComponents } from '../Utils';
 
 const GameMenuContainer = styled.div`
   width: 100%;
   height: 100%;
-  position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: #f0f0f0;
 `;
 
-const GameMenuButton = styled.button`
-  width: 100px;
-  height: 50px;
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid black;
-  background-color: white;
+const StartGameButton = styled.button`
+  padding: 10px 20px;
+  margin-top: 20px;
+  font-size: 18px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
 `;
 
 const GameMenu = () => {
-  const { onStartGame, isGameStarted } = useStartGameTimer();
-  const gameComponents = useRenderGameComponents();
+  const handleStartGame = () => {
+    console.log('Game starting logic goes here!');
+    // Add your logic for starting the game, e.g., initializing game state.
+  };
 
   return (
     <GameMenuContainer>
       <h1>Flappy Bird</h1>
+      <p>Welcome to Flappy Bird! Click the button below to start the game.</p>
       <Link to="/gameLevel">
-        <GameMenuButton onClick={onStartGame} disabled={isGameStarted}>
-          Start Game
-        </GameMenuButton>
+        <StartGameButton onClick={handleStartGame}>Start Game</StartGameButton>
       </Link>
-      {gameComponents}
     </GameMenuContainer>
   );
 };
