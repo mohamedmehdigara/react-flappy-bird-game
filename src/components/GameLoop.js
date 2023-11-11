@@ -1,5 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+
+const useGameLoop = (interval, onTick, onGameOver) => {
+  const gameLoopRef = useRef();
+
+  useEffect(() => {
+    const tick = () => {
+      onTick();
+      gameLoopRef.current = requestAnimationFrame(tick);
+    };
+
+    gameLoopRef.current = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(gameLoopRef.current);
+    };
+  }, [onTick, onGameOver]);
+
+  const stopGameLoop = () => {
+    cancelAnimationFrame(gameLoopRef.current);
+  };
+
+  return stopGameLoop;
+};
 
 const GameLoop = () => {
   const [score, setScore] = useState(0);
@@ -12,21 +35,21 @@ const GameLoop = () => {
     }
   };
 
-  useEffect(() => {
-    const gameLoopInterval = setInterval(() => {
-      handleGameLogic();
-    }, 1000); // Adjust the interval based on your game logic
-
-    return () => {
-      clearInterval(gameLoopInterval);
-    };
-  }, [isGameOver]);
-
   const handleGameOver = () => {
     console.log('Game over logic goes here!');
     // Add your logic for handling game over, e.g., showing a game over screen.
     setIsGameOver(true);
   };
+
+  const restartGame = () => {
+    setScore(0);
+    setIsGameOver(false);
+    stopGameLoop(); // Stop the previous game loop
+    startGameLoop(); // Start a new game loop
+  };
+
+  const stopGameLoop = useGameLoop(1000, handleGameLogic, isGameOver ? handleGameOver : null);
+  const startGameLoop = useGameLoop(1000, handleGameLogic, isGameOver ? handleGameOver : null);
 
   return (
     <div>
@@ -36,6 +59,7 @@ const GameLoop = () => {
       {isGameOver && (
         <div>
           <p>Game Over!</p>
+          <button onClick={restartGame}>Restart Game</button>
           <Link to="/gameMenu">Return to Menu</Link>
         </div>
       )}
