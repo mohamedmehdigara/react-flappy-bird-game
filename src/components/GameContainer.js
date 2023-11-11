@@ -30,6 +30,13 @@ const GameContainer = () => {
     <Canvas>
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
+
+      {/* Add ground/floor */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -10, 0]}>
+        <planeBufferGeometry attach="geometry" args={[1000, 1000]} />
+        <meshBasicMaterial attach="material" color="#d3d3d3" />
+      </mesh>
+
       <Bird />
     </Canvas>
   );
