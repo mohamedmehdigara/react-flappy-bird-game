@@ -18,17 +18,18 @@ const Title = styled.h1`
   color: #333; /* Choose a color that contrasts well with the background */
 `;
 
-const StartGameButton = styled.button`
+const StartGameButton = styled(Link)`
   padding: 10px 20px;
   margin-top: 20px;
   font-size: 18px;
   background-color: #4caf50;
   color: white;
+  text-decoration: none; /* Remove default underline for links */
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease; /* Add a smooth transition effect */
-  
+
   &:hover {
     background-color: #45a049; /* Darken the color on hover */
   }
@@ -44,9 +45,9 @@ const GameMenu = () => {
     <GameMenuContainer>
       <Title>Flappy Bird</Title>
       <p>Welcome to Flappy Bird! Click the button below to start the game.</p>
-      <Link to="/gameLevel">
-        <StartGameButton onClick={handleStartGame}>Start Game</StartGameButton>
-      </Link>
+      <StartGameButton to="/gameLevel" onClick={handleStartGame}>
+        Start Game
+      </StartGameButton>
     </GameMenuContainer>
   );
 };
