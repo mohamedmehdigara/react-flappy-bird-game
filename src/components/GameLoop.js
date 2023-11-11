@@ -3,59 +3,70 @@ import { Link } from 'react-router-dom';
 import Game from './Game';
 
 const GameLoop = () => {
-    const [birdPosition, setBirdPosition] = useState({ x: 100, y: 100 });
-
-  // Update the game state
-  const [gameState, setGameState] = useState({
-    birdPosition: { x: 100, y: 100 },
-    pipes: [],
+  // State for bird position, velocity, and pipes
+  const [birdState, setBirdState] = useState({
+    position: { x: 100, y: 100 },
+    velocity: { x: 0, y: 0 },
   });
-  const [birdVelocity, setBirdVelocity] = useState({ x: 0, y: 0 });
 
+  const [pipes, setPipes] = useState([]);
 
-  const updateBirdPosition = () => {
-    // Calculate the bird's new position based on its current position, velocity, and acceleration.
+  // Game loop logic
+  const gameLoop = () => {
+    // Update bird position
     const newBirdPosition = {
-      x: birdPosition.x + birdVelocity.x,
-      y: birdPosition.y + birdVelocity.y,
+      x: birdState.position.x + birdState.velocity.x,
+      y: birdState.position.y + birdState.velocity.y,
     };
-  
-    // Set the bird's new position.
-    setBirdPosition(newBirdPosition);
+    setBirdState((prevState) => ({ ...prevState, position: newBirdPosition }));
+
+    // Detect collisions
+    detectCollisions();
+
+    // Render game components
+    renderGameComponents();
+
+    // Request the next frame
+    requestAnimationFrame(gameLoop);
   };
 
-  // Detect collisions
+  // Update bird velocity based on user input (e.g., keyboard, mouse, touch)
+  const handleUserInput = (event) => {
+    // TODO: Implement user input handling logic
+  };
+
+  // Detect collisions with pipes
   const detectCollisions = () => {
-    // Check if the bird has collided with a pipe
-    for (const pipe of gameState.pipes) {
-      if (birdPosition.x < pipe.x + pipe.width && birdPosition.x + birdPosition.width > pipe.x && birdPosition.y < pipe.y + pipe.height && birdPosition.y + birdPosition.height > pipe.y) {
-        // Game over!
-        // TODO: Implement game over logic
+    for (const pipe of pipes) {
+      if (
+        birdState.position.x < pipe.x + pipe.width &&
+        birdState.position.x + birdState.width > pipe.x &&
+        birdState.position.y < pipe.y + pipe.height &&
+        birdState.position.y + birdState.height > pipe.y
+      ) {
+        // Game over logic
+        handleGameOver();
       }
     }
   };
 
-  // Render the game components
+  // Handle game over
+  const handleGameOver = () => {
+    // TODO: Implement game over logic
+  };
+
+  // Render game components (e.g., bird, pipes)
   const renderGameComponents = () => {
     // TODO: Implement game component rendering logic
   };
 
   useEffect(() => {
-    // Start the game loop
-    const gameLoop = () => {
-      // Update the game state
-      updateBirdPosition();
-      detectCollisions();
+    // Start the game loop on component mount
+    const animationFrameId = requestAnimationFrame(gameLoop);
 
-      // Render the game components
-      renderGameComponents();
-
-      // Request the next frame
-      requestAnimationFrame(gameLoop);
-    };
-
-    gameLoop();
-  }, []);
+    // Cleanup on component unmount
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [birdState, pipes]);
 
   return (
     <div>
