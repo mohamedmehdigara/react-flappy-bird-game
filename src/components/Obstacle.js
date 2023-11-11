@@ -1,13 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const ObstacleContainer = styled.div`
+const StyledObstacle = styled.div`
   width: 50px;
   height: 100px;
   position: absolute;
-  top: 0;
-  left: 500px;
-  background-color: green;
+  background-color: ${(props) => props.color || 'green'};
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 `;
 
@@ -15,34 +14,31 @@ const Obstacle = ({ type, position, color }) => {
   // Render the appropriate obstacle based on the type.
   switch (type) {
     case 'pipe':
-      return (
-        <ObstacleContainer
-          key={position.y}
-          title="Pipe obstacle"
-          role="obstacle"
-          style={{
-            top: position.y,
-            left: position.x,
-            backgroundColor: color,
-          }}
-        />
-      );
     case 'platform':
       return (
-        <ObstacleContainer
+        <StyledObstacle
           key={position.y}
-          title="Platform obstacle"
+          title={`${type} obstacle`}
           role="obstacle"
           style={{
             top: position.y,
             left: position.x,
-            backgroundColor: color,
           }}
+          color={color}
         />
       );
     default:
       return null;
   }
+};
+
+Obstacle.propTypes = {
+  type: PropTypes.oneOf(['pipe', 'platform']).isRequired,
+  position: PropTypes.shape({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
+  }).isRequired,
+  color: PropTypes.string, // Add this if 'color' is an optional prop
 };
 
 export default Obstacle;

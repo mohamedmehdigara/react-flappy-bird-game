@@ -24,11 +24,11 @@ const LeaderboardItem = styled.div`
   justify-content: space-between;
 `;
 
-const Leaderboard = ({ }) => {
+const Leaderboard = () => {
   const [scores, setScores] = useState([]);
 
   // Sort the scores in descending order, and limit the number of scores to 10.
-  const sortedScores = scores.sort((a, b) => b.score - a.score).slice(0, 10);
+  const sortedScores = scores?.sort((a, b) => b.score - a.score).slice(0, 10) || [];
 
   // Render a list of the top scores.
   return (

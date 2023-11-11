@@ -1,41 +1,37 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import Bird from './components/Bird';
+import React, { useState, useCallback } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import GameMenu from './components/GameMenu';
-import GameLoop from './components/GameLoop';
-import Leaderboard from './components/Leaderboard';
 import GameLevel from './components/GameLevel';
-import Obstacle from './components/Obstacle';
-import PowerUp from './components/PowerUp';
 import Game from './components/Game';
-import { BrowserRouter as Router, Route, Routes , useNavigate} from 'react-router-dom';
+import Leaderboard from './components/Leaderboard';
+import PowerUp from './components/PowerUp';
+import Obstacle from './components/Obstacle';
 
-function App  ()  {
+function App() {
   const [gameState, setGameState] = useState('menu');
   const navigate = useNavigate();
 
-  const startGame = () => {
+  const startGame = useCallback(() => {
     setGameState('playing');
-    navigate('/Game');
-  };
+    navigate('/game');
+  }, [navigate]);
 
   return (
-    
-      <Routes >
-         <Route path="/" element={<GameMenu startGame={startGame} />}/>
-        
-          
-         <Route path="/Bird" element={<Bird />}/>
-         <Route path="/Obstacle" element={ <Obstacle />}/>
-         <Route path="/PowerUp" element={<PowerUp />}/>
-         <Route path="/Leaderboard" element={<Leaderboard />}/>
-         <Route path="/GameLevel" element={<GameLevel />}/>
-         <Route path="/GameLoop" element={<GameLoop />}/>
-         <Route path="/Game" element={<Game gameState={gameState} />}/>
-          
-        
-      </Routes>
-      
+    <Routes>
+      <Route path="/" element={<GameMenu startGame={startGame} />} />
+      <Route
+        path="/game"
+        element={
+          <>
+            <Game gameState={gameState} />
+            {/* Additional components like Bird, Obstacle, PowerUp can be used within the Game component */}
+          </>
+        }
+      />
+      <Route path="/leaderboard" element={<Leaderboard />} />
+      <Route path="/gameLevel" element={<GameLevel />} />
+    </Routes>
   );
-};
+}
 
 export default App;
