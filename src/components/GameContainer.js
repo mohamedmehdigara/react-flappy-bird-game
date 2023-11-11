@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 
 const GameContainer = () => {
   const birdSpeed = 1;
-  const canvasRef = useRef(null);
 
   const Bird = () => {
     const [birdPosition, setBirdPosition] = useState({ x: 100, y: 100, z: 0 });
@@ -20,8 +19,8 @@ const GameContainer = () => {
 
     return (
       <mesh position={birdPosition}>
-        <boxBufferGeometry attach="geometry" args={[10, 10, 10]} />
-        <meshBasicMaterial attach="material" color="black" />
+        <boxBufferGeometry args={[10, 10, 10]} />
+        <meshBasicMaterial color="black" />
       </mesh>
     );
   };
@@ -33,8 +32,8 @@ const GameContainer = () => {
 
       {/* Add ground/floor */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -10, 0]}>
-        <planeBufferGeometry attach="geometry" args={[1000, 1000]} />
-        <meshBasicMaterial attach="material" color="#d3d3d3" />
+        <planeBufferGeometry args={[1000, 1000]} />
+        <meshBasicMaterial color="#d3d3d3" />
       </mesh>
 
       <Bird />
@@ -43,3 +42,4 @@ const GameContainer = () => {
 };
 
 export default GameContainer;
+

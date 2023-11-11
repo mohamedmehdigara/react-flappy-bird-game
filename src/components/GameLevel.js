@@ -15,40 +15,6 @@ const GameLevelContainer = styled.div`
   margin: 10px;
 `;
 
-const ProgressBar = styled.div`
-  background-color: #ccc;
-  width: 100%;
-  height: 10px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-`;
-
-const ProgressIndicator = styled.div`
-  background-color: #007bff;
-  width: ${(props) => props.progress}%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-`;
-
-const PauseButton = styled.button`
-  background-color: gray;
-  color: black;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-`;
-
-const RestartButton = styled.button`
-  background-color: green;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  pointer-events: ${(props) => (props.loading ? "none" : "auto")};
-`;
-
 const ScoreComponent = styled.div`
   position: absolute;
   top: 10px;
@@ -72,20 +38,54 @@ const GameLevelTitle = styled.h1`
   margin-bottom: 20px;
 `;
 
-const PowerUp = styled.div`
+const ButtonBase = styled.button`
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+`;
+
+const PauseButton = styled(ButtonBase)`
+  background-color: gray;
+  color: black;
+`;
+
+const RestartButton = styled(ButtonBase)`
+  background-color: green;
+  color: white;
+  pointer-events: ${(props) => (props.loading ? "none" : "auto")};
+`;
+
+const ProgressBar = styled.div`
+  background-color: #ccc;
+  width: 100%;
+  height: 10px;
   position: absolute;
-  top: ${(props) => Math.random() * (window.innerHeight - 100) + 100}px;
-  left: ${(props) => Math.random() * (window.innerWidth - 100) + 100}px;
+  bottom: 0;
+  left: 0;
+`;
+
+const ProgressIndicator = styled.div`
+  background-color: #007bff;
+  width: ${(props) => props.progress}%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+`;
+
+const PositionedDiv = styled.div`
+  position: absolute;
+  top: ${(props) => props.top}px;
+  left: ${(props) => props.left}px;
+`;
+
+const PowerUp = styled(PositionedDiv)`
   background-color: green;
   width: 20px;
   height: 20px;
   border-radius: 10px;
 `;
 
-const Obstacle = styled.div`
-  position: absolute;
-  top: ${(props) => Math.random() * (window.innerHeight - 50) + 50}px;
-  left: ${(props) => Math.random() * (window.innerWidth - 100) + 100}px;
+const Obstacle = styled(PositionedDiv)`
   background-color: red;
   width: 50px;
   height: 50px;
@@ -123,8 +123,8 @@ const GameLevel = ({ level, loading, score, enemiesRemaining, progress }) => {
           <ProgressBar>
             <ProgressIndicator progress={progress} />
           </ProgressBar>
-          <PowerUp />
-          <Obstacle />
+          <PowerUp top={Math.random() * (window.innerHeight - 100) + 100} left={Math.random() * (window.innerWidth - 100) + 100} />
+          <Obstacle top={Math.random() * (window.innerHeight - 50) + 50} left={Math.random() * (window.innerWidth - 100) + 100} />
           <Leaderboard />
         </>
       )}

@@ -1,12 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types'; // Import PropTypes for type checking
 import { Link } from 'react-router-dom';
 
+// Custom hook for game loop
 const useGameLoop = (interval, onTick, onGameOver) => {
   const gameLoopRef = useRef();
 
   useEffect(() => {
     const tick = () => {
-      onTick();
+      try {
+        onTick();
+      } catch (error) {
+        console.error('Error during game tick:', error);
+        // Handle or log the error as needed
+      }
+
       gameLoopRef.current = requestAnimationFrame(tick);
     };
 
@@ -48,6 +56,7 @@ const GameLoop = () => {
     startGameLoop(); // Start a new game loop
   };
 
+  // Use PropTypes for type checking
   const stopGameLoop = useGameLoop(1000, handleGameLogic, isGameOver ? handleGameOver : null);
   const startGameLoop = useGameLoop(1000, handleGameLogic, isGameOver ? handleGameOver : null);
 
@@ -65,6 +74,11 @@ const GameLoop = () => {
       )}
     </div>
   );
+};
+
+// PropTypes for type checking
+GameLoop.propTypes = {
+  // Add any prop types if needed
 };
 
 export default GameLoop;
