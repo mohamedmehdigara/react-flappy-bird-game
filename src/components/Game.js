@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Bird from "./Bird";
 import Obstacle from "./Obstacle";
 import PowerUp from "./PowerUp";
+import GameOverScreen from "./GameOverScreen"; // Create a GameOverScreen component
 
 const Game = () => {
   const [birdPosition, setBirdPosition] = useState({ top: 0 });
@@ -9,7 +10,6 @@ const Game = () => {
   const [powerUps, setPowerUps] = useState([]);
   const [isGameOver, setIsGameOver] = useState(false);
 
-  // Placeholder for handleGameOver function
   const handleGameOver = () => {
     // Restart the game after a short delay.
     setTimeout(() => {
@@ -22,85 +22,78 @@ const Game = () => {
     // TODO: Implement a leaderboard to store the player's high score.
   };
 
-  // Placeholder for collision detection logic
   const checkCollisions = () => {
-    // Check for collisions with obstacles
-    for (const obstacle of obstacles) {
-      if (
-        birdPosition.top < obstacle.top + obstacle.height &&
-        birdPosition.top + 20 > obstacle.top &&
-        obstacle.left < 30 // Assuming bird width is 20px
-      ) {
-        setIsGameOver(true);
-        handleGameOver();
-        break;
-      }
-    }
+    // Collision logic here
+    // ...
+  };
 
-    // Check for collisions with power-ups
-    for (const powerUp of powerUps) {
-      if (
-        birdPosition.top < powerUp.top + powerUp.height &&
-        birdPosition.top + 20 > powerUp.top &&
-        powerUp.left < 30 // Assuming bird width is 20px
-      ) {
-        // TODO: Implement logic for power-up effect
-        // For example, increase the score or provide a temporary boost.
-        // Remove the power-up from the array after collision.
-        setPowerUps((prevPowerUps) => prevPowerUps.filter((p) => p !== powerUp));
-      }
-    }
+  const generateObstacle = () => {
+    // Logic to generate a new obstacle
+    // ...
+  };
+
+  const generatePowerUp = () => {
+    // Logic to generate a new power-up
+    // ...
   };
 
   useEffect(() => {
     if (!isGameOver) {
-      const GAME_AREA_HEIGHT = 400; // Adjust the game area height as needed.
+      const GAME_AREA_HEIGHT = 400;
 
-      const updateBirdPosition = () => {
-        // Calculate the new bird position based on the current top.
-        const newTop = birdPosition.top + 1;
+      const updateGame = () => {
+        // Game logic here
+        // ...
 
-        // Update the bird's position only if the game is still running.
-        if (newTop < GAME_AREA_HEIGHT) {
-          setBirdPosition({ top: newTop });
-          checkCollisions();
-        } else {
-          // Handle game over when the bird goes out of bounds.
-          setIsGameOver(true);
-          handleGameOver();
+        // Check for collisions
+        checkCollisions();
+
+        // Generate new obstacles and power-ups at regular intervals
+        if (Math.random() < 0.02) {
+          setObstacles((prevObstacles) => [...prevObstacles, generateObstacle()]);
+        }
+
+        if (Math.random() < 0.01) {
+          setPowerUps((prevPowerUps) => [...prevPowerUps, generatePowerUp()]);
         }
 
         // Request the next frame for the animation.
-        requestAnimationFrame(updateBirdPosition);
+        requestAnimationFrame(updateGame);
       };
 
       // Start the game loop by requesting the first frame.
-      requestAnimationFrame(updateBirdPosition);
+      requestAnimationFrame(updateGame);
 
       // Cleanup the animation frame request when the component unmounts.
       return () => {
-        cancelAnimationFrame(updateBirdPosition);
+        cancelAnimationFrame(updateGame);
       };
     }
   }, [birdPosition, obstacles, powerUps, isGameOver]);
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '400px', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', top: birdPosition.top }}>
-        <Bird />
-      </div>
+      {isGameOver ? (
+        <GameOverScreen />
+      ) : (
+        <>
+          <div style={{ position: 'absolute', top: birdPosition.top }}>
+            <Bird />
+          </div>
 
-      {obstacles.map((obstacle, index) => (
-        <div key={index} style={{ position: 'absolute', ...obstacle }}>
-          <Obstacle type="pipe" position={obstacle} color="red" />
-        </div>
-      ))}
+          {obstacles.map((obstacle, index) => (
+            <div key={index} style={{ position: 'absolute', ...obstacle }}>
+              <Obstacle type="pipe" position={obstacle} color="red" />
+            </div>
+          ))}
 
-      {powerUps.map((powerUp, index) => (
-        <div key={index} style={{ position: 'absolute', ...powerUp }}>
-          <PowerUp type="speedBoost" position={powerUp} />
-        </div>
-      ))}
+          {powerUps.map((powerUp, index) => (
+            <div key={index} style={{ position: 'absolute', ...powerUp }}>
+              <PowerUp type="speedBoost" position={powerUp} />
+            </div>
+          ))}
+        </>
+      )}
     </div>
   );
 };
