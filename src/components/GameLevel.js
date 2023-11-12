@@ -98,6 +98,14 @@ const GameLevel = ({ level, loading, score, enemiesRemaining, progress }) => {
   const levels = ["Level 1", "Level 2", "Level 3"];
   const gameLevel = levels[level];
 
+  const handlePauseToggle = () => {
+    setIsGamePaused(!isGamePaused);
+  };
+
+  const handleRestart = () => {
+    window.location.reload();
+  };
+
   return (
     <GameLevelContainer key={level}>
       {loading && <div>Loading...</div>}
@@ -114,17 +122,23 @@ const GameLevel = ({ level, loading, score, enemiesRemaining, progress }) => {
               console.log("Level completed!");
             }}
           />
-          <PauseButton onClick={() => setIsGamePaused(!isGamePaused)}>
+          <PauseButton onClick={handlePauseToggle}>
             {isGamePaused ? "Resume" : "Pause"}
           </PauseButton>
-          <RestartButton loading={loading} onClick={() => window.location.reload()}>
+          <RestartButton loading={loading} onClick={handleRestart}>
             Restart
           </RestartButton>
           <ProgressBar>
             <ProgressIndicator progress={progress} />
           </ProgressBar>
-          <PowerUp top={Math.random() * (window.innerHeight - 100) + 100} left={Math.random() * (window.innerWidth - 100) + 100} />
-          <Obstacle top={Math.random() * (window.innerHeight - 50) + 50} left={Math.random() * (window.innerWidth - 100) + 100} />
+          <PowerUp
+            top={Math.random() * (window.innerHeight - 100) + 100}
+            left={Math.random() * (window.innerWidth - 100) + 100}
+          />
+          <Obstacle
+            top={Math.random() * (window.innerHeight - 50) + 50}
+            left={Math.random() * (window.innerWidth - 100) + 100}
+          />
           <Leaderboard />
         </>
       )}
