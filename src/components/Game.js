@@ -10,17 +10,17 @@ const Game = () => {
   const [powerUps, setPowerUps] = useState([]);
   const [isGameOver, setIsGameOver] = useState(false);
 
-  // Helper function to check if there's a collision between two entities
+  // Helper function to check for collisions between two entities
   const isCollision = (entity1, entity2) => {
-    if (
-      entity1.top < entity2.top + entity2.height &&
-      entity1.top + 20 > entity2.top &&
-      entity1.left < entity2.left + entity2.width &&
-      entity1.left + 20 > entity2.left
-    ) {
-      return true;
-    }
-    return false;
+    const rect1 = entity1;
+    const rect2 = entity2;
+
+    return (
+      rect1.top < rect2.top + rect2.height &&
+      rect1.top + 20 > rect2.top &&
+      rect1.left < rect2.left + rect2.width &&
+      rect1.left + 20 > rect2.left
+    );
   };
 
   const handleGameOver = () => {
@@ -51,24 +51,21 @@ const Game = () => {
 
   const checkCollisions = () => {
     // Check for collisions with obstacles
-    for (const obstacle of obstacles) {
+    obstacles.forEach((obstacle) => {
       if (isCollision(birdPosition, obstacle)) {
         handleObstacleCollision(obstacle);
       }
-    }
+    });
 
     // Check for collisions with power-ups
-    for (const powerUp of powerUps) {
+    powerUps.forEach((powerUp) => {
       if (isCollision(birdPosition, powerUp)) {
         handlePowerUpCollision(powerUp);
       }
-    }
+    });
   };
 
   const generateObstacle = () => {
-    // Logic to generate a new obstacle
-    // ...
-
     // Placeholder, replace with your obstacle generation logic
     return {
       top: 100, // Adjust the initial position
@@ -79,9 +76,6 @@ const Game = () => {
   };
 
   const generatePowerUp = () => {
-    // Logic to generate a new power-up
-    // ...
-
     // Placeholder, replace with your power-up generation logic
     return {
       top: 150, // Adjust the initial position
@@ -94,37 +88,37 @@ const Game = () => {
   useEffect(() => {
     if (!isGameOver) {
       const GAME_AREA_HEIGHT = 400;
-
+  
       const updateGame = () => {
         // Game logic here
         // ...
-
+  
         // Check for collisions
         checkCollisions();
-
+  
         // Generate new obstacles and power-ups at regular intervals
         if (Math.random() < 0.02) {
           setObstacles((prevObstacles) => [...prevObstacles, generateObstacle()]);
         }
-
+  
         if (Math.random() < 0.01) {
           setPowerUps((prevPowerUps) => [...prevPowerUps, generatePowerUp()]);
         }
-
+  
         // Request the next frame for the animation.
         requestAnimationFrame(updateGame);
       };
-
+  
       // Start the game loop by requesting the first frame.
       requestAnimationFrame(updateGame);
-
+  
       // Cleanup the animation frame request when the component unmounts.
       return () => {
         cancelAnimationFrame(updateGame);
       };
     }
-  }, [birdPosition, obstacles, powerUps, isGameOver]);
-
+  }, [isGameOver, birdPosition, obstacles, powerUps, generateObstacle, generatePowerUp, checkCollisions]);
+  
   return (
     <div style={{ position: 'relative', width: '100%', height: '400px', overflow: 'hidden' }}>
       {isGameOver ? (
@@ -136,13 +130,13 @@ const Game = () => {
           </div>
 
           {obstacles.map((obstacle, index) => (
-            <div key={index} style={{ position: 'absolute', top: obstacle?.top || 0, left: obstacle?.left || 0 }}>
+            <div key={index} style={{ position: 'absolute', top: obstacle.top, left: obstacle.left }}>
               <Obstacle type="pipe" position={obstacle} color="red" />
             </div>
           ))}
 
           {powerUps.map((powerUp, index) => (
-            <div key={index} style={{ position: 'absolute', top: powerUp?.top || 0, left: powerUp?.left || 0 }}>
+            <div key={index} style={{ position: 'absolute', top: powerUp.top, left: powerUp.left }}>
               <PowerUp type="speedBoost" position={powerUp} />
             </div>
           ))}
