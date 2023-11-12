@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const LeaderboardContainer = styled.div`
-  width: 100px;
-  height: 100px;
+  width: 10px;
+  height: 10px;
   position: absolute;
   top: 0;
   left: 500px;
