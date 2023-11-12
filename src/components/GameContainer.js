@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 
+const Bird = ({ speed }) => {
+  const [birdPosition, setBirdPosition] = useState({ x: 100, y: 100, z: 0 });
+
+  useEffect(() => {
+    const updateBirdPosition = () => {
+      setBirdPosition((prevPosition) => ({ ...prevPosition, y: prevPosition.y + speed }));
+    };
+
+    const animationFrameId = requestAnimationFrame(updateBirdPosition);
+
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [speed]);
+
+  return (
+    <mesh position={birdPosition}>
+      <boxBufferGeometry args={[10, 10, 10]} />
+      <meshBasicMaterial color="black" />
+    </mesh>
+  );
+};
+
 const GameContainer = () => {
   const birdSpeed = 1;
-
-  const Bird = () => {
-    const [birdPosition, setBirdPosition] = useState({ x: 100, y: 100, z: 0 });
-
-    useEffect(() => {
-      const updateBirdPosition = () => {
-        setBirdPosition((prevPosition) => ({ ...prevPosition, y: prevPosition.y + birdSpeed }));
-      };
-
-      const animationFrameId = requestAnimationFrame(updateBirdPosition);
-
-      return () => cancelAnimationFrame(animationFrameId);
-    }, []);
-
-    return (
-      <mesh position={birdPosition}>
-        <boxBufferGeometry args={[10, 10, 10]} />
-        <meshBasicMaterial color="black" />
-      </mesh>
-    );
-  };
 
   return (
     <Canvas>
@@ -36,10 +36,9 @@ const GameContainer = () => {
         <meshBasicMaterial color="#d3d3d3" />
       </mesh>
 
-      <Bird />
+      <Bird speed={birdSpeed} />
     </Canvas>
   );
 };
 
 export default GameContainer;
-
