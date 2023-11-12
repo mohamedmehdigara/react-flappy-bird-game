@@ -6,6 +6,7 @@ import Game from './components/Game';
 import Leaderboard from './components/Leaderboard';
 import PowerUp from './components/PowerUp';
 import Obstacle from './components/Obstacle';
+import GameLoop from './components/GameLoop'; // Assuming you have a GameLoop component
 
 function App() {
   const [gameState, setGameState] = useState('menu');
@@ -25,11 +26,14 @@ function App() {
           <>
             <Game gameState={gameState} />
             {/* Additional components like Bird, Obstacle, PowerUp can be used within the Game component */}
+            <Obstacle />
+            <PowerUp />
           </>
         }
       />
       <Route path="/leaderboard" element={<Leaderboard />} />
       <Route path="/gameLevel" element={<GameLevel />} />
+      <Route path="/gameLoop" element={<GameLoop />} />
     </Routes>
   );
 }

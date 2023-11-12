@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types'; // Import PropTypes for type checking
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 // Custom hook for game loop
