@@ -1,8 +1,9 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import Game from './Game';
 import Leaderboard from './Leaderboard';
 
+// Styled components for styling
 const GameLevelContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -92,24 +93,35 @@ const Obstacle = styled(PositionedDiv)`
   border-radius: 25px;
 `;
 
+// GameLevel functional component
 const GameLevel = ({ level, loading, score, enemiesRemaining, progress }) => {
   const [isGamePaused, setIsGamePaused] = useState(false);
 
+  // Array of game levels
   const levels = ['Level 1', 'Level 2', 'Level 3'];
   const gameLevel = levels[level];
 
+  // Toggle pause state
   const handlePauseToggle = useCallback(() => {
     setIsGamePaused((prev) => !prev);
   }, []);
 
+  // Restart the game
   const handleRestart = useCallback(() => {
-    window.location.reload();
+    // Reset game state here if needed
+    setIsGamePaused(false);
   }, []);
+
+  useEffect(() => {
+    // Place your side effects or async operations here
+    // Make sure to handle cleanup if necessary
+  }, [/* dependencies */]);
 
   return (
     <GameLevelContainer key={level}>
-      {loading && <div>Loading...</div>}
-      {!loading && (
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
         <>
           <ScoreComponent>Score: {score}</ScoreComponent>
           <EnemiesRemainingComponent>Enemies Remaining: {enemiesRemaining}</EnemiesRemainingComponent>
@@ -122,8 +134,14 @@ const GameLevel = ({ level, loading, score, enemiesRemaining, progress }) => {
           <ProgressBar>
             <ProgressIndicator progress={progress} />
           </ProgressBar>
-          <PowerUp top={Math.random() * (window.innerHeight - 100) + 100} left={Math.random() * (window.innerWidth - 100) + 100} />
-          <Obstacle top={Math.random() * (window.innerHeight - 50) + 50} left={Math.random() * (window.innerWidth - 100) + 100} />
+          <PowerUp
+            top={Math.random() * (window.innerHeight - 100) + 100}
+            left={Math.random() * (window.innerWidth - 100) + 100}
+          />
+          <Obstacle
+            top={Math.random() * (window.innerHeight - 50) + 50}
+            left={Math.random() * (window.innerWidth - 100) + 100}
+          />
           <Leaderboard />
         </>
       )}
