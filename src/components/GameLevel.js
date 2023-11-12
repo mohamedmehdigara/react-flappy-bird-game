@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Game from "./Game";
-import Leaderboard from "./Leaderboard";
+import React, { useState, useCallback } from 'react';
+import styled from 'styled-components';
+import Game from './Game';
+import Leaderboard from './Leaderboard';
 
 const GameLevelContainer = styled.div`
   width: 100%;
@@ -52,7 +52,7 @@ const PauseButton = styled(ButtonBase)`
 const RestartButton = styled(ButtonBase)`
   background-color: green;
   color: white;
-  pointer-events: ${(props) => (props.loading ? "none" : "auto")};
+  pointer-events: ${(props) => (props.loading ? 'none' : 'auto')};
 `;
 
 const ProgressBar = styled.div`
@@ -95,16 +95,16 @@ const Obstacle = styled(PositionedDiv)`
 const GameLevel = ({ level, loading, score, enemiesRemaining, progress }) => {
   const [isGamePaused, setIsGamePaused] = useState(false);
 
-  const levels = ["Level 1", "Level 2", "Level 3"];
+  const levels = ['Level 1', 'Level 2', 'Level 3'];
   const gameLevel = levels[level];
 
-  const handlePauseToggle = () => {
-    setIsGamePaused(!isGamePaused);
-  };
+  const handlePauseToggle = useCallback(() => {
+    setIsGamePaused((prev) => !prev);
+  }, []);
 
-  const handleRestart = () => {
+  const handleRestart = useCallback(() => {
     window.location.reload();
-  };
+  }, []);
 
   return (
     <GameLevelContainer key={level}>
@@ -112,33 +112,18 @@ const GameLevel = ({ level, loading, score, enemiesRemaining, progress }) => {
       {!loading && (
         <>
           <ScoreComponent>Score: {score}</ScoreComponent>
-          <EnemiesRemainingComponent>
-            Enemies Remaining: {enemiesRemaining}
-          </EnemiesRemainingComponent>
+          <EnemiesRemainingComponent>Enemies Remaining: {enemiesRemaining}</EnemiesRemainingComponent>
           <GameLevelTitle>{gameLevel}</GameLevelTitle>
-          <Game
-            gameState={isGamePaused ? "paused" : "playing"}
-            onLevelComplete={() => {
-              console.log("Level completed!");
-            }}
-          />
-          <PauseButton onClick={handlePauseToggle}>
-            {isGamePaused ? "Resume" : "Pause"}
-          </PauseButton>
+          <Game gameState={isGamePaused ? 'paused' : 'playing'} onLevelComplete={() => console.log('Level completed!')} />
+          <PauseButton onClick={handlePauseToggle}>{isGamePaused ? 'Resume' : 'Pause'}</PauseButton>
           <RestartButton loading={loading} onClick={handleRestart}>
             Restart
           </RestartButton>
           <ProgressBar>
             <ProgressIndicator progress={progress} />
           </ProgressBar>
-          <PowerUp
-            top={Math.random() * (window.innerHeight - 100) + 100}
-            left={Math.random() * (window.innerWidth - 100) + 100}
-          />
-          <Obstacle
-            top={Math.random() * (window.innerHeight - 50) + 50}
-            left={Math.random() * (window.innerWidth - 100) + 100}
-          />
+          <PowerUp top={Math.random() * (window.innerHeight - 100) + 100} left={Math.random() * (window.innerWidth - 100) + 100} />
+          <Obstacle top={Math.random() * (window.innerHeight - 50) + 50} left={Math.random() * (window.innerWidth - 100) + 100} />
           <Leaderboard />
         </>
       )}
