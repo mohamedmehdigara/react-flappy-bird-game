@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 
-const Bird = ({ speed }) => {
+const Bird = ({ speed, color }) => {
   const [birdPosition, setBirdPosition] = useState({ x: 100, y: 100, z: 0 });
 
   useEffect(() => {
@@ -17,13 +17,14 @@ const Bird = ({ speed }) => {
   return (
     <mesh position={birdPosition}>
       <boxBufferGeometry args={[10, 10, 10]} />
-      <meshBasicMaterial color="black" />
+      <meshBasicMaterial color={color} />
     </mesh>
   );
 };
 
 const GameContainer = () => {
   const birdSpeed = 1;
+  const birdColor = 'black'; // Set your default color or make it dynamic
 
   return (
     <Canvas>
@@ -36,7 +37,7 @@ const GameContainer = () => {
         <meshBasicMaterial color="#d3d3d3" />
       </mesh>
 
-      <Bird speed={birdSpeed} />
+      <Bird speed={birdSpeed} color={birdColor} />
     </Canvas>
   );
 };

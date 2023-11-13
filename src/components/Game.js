@@ -1,4 +1,3 @@
-// Game.js
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Background from './Background';
