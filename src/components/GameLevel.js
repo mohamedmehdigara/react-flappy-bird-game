@@ -4,7 +4,7 @@ import Game from './Game';
 import Leaderboard from './Leaderboard';
 
 // Styled components for styling
-const GameLevelContainer = styled.div`
+const StyledGameLevelContainer = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
@@ -16,7 +16,7 @@ const GameLevelContainer = styled.div`
   margin: 10px;
 `;
 
-const ScoreComponent = styled.div`
+const StyledScoreComponent = styled.div`
   position: absolute;
   top: 10px;
   left: 10px;
@@ -24,7 +24,7 @@ const ScoreComponent = styled.div`
   color: black;
 `;
 
-const EnemiesRemainingComponent = styled.div`
+const StyledEnemiesRemainingComponent = styled.div`
   position: absolute;
   top: 10px;
   right: 10px;
@@ -32,31 +32,31 @@ const EnemiesRemainingComponent = styled.div`
   color: black;
 `;
 
-const GameLevelTitle = styled.h1`
+const StyledGameLevelTitle = styled.h1`
   font-size: 48px;
   font-weight: bold;
   color: black;
   margin-bottom: 20px;
 `;
 
-const ButtonBase = styled.button`
+const StyledButtonBase = styled.button`
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
 `;
 
-const PauseButton = styled(ButtonBase)`
+const StyledPauseButton = styled(StyledButtonBase)`
   background-color: gray;
   color: black;
 `;
 
-const RestartButton = styled(ButtonBase)`
+const StyledRestartButton = styled(StyledButtonBase)`
   background-color: green;
   color: white;
   pointer-events: ${(props) => (props.loading ? 'none' : 'auto')};
 `;
 
-const ProgressBar = styled.div`
+const StyledProgressBar = styled.div`
   background-color: #ccc;
   width: 100%;
   height: 10px;
@@ -65,7 +65,7 @@ const ProgressBar = styled.div`
   left: 0;
 `;
 
-const ProgressIndicator = styled.div`
+const StyledProgressIndicator = styled.div`
   background-color: #007bff;
   width: ${(props) => props.progress}%;
   height: 100%;
@@ -73,20 +73,20 @@ const ProgressIndicator = styled.div`
   left: 0;
 `;
 
-const PositionedDiv = styled.div`
+const StyledPositionedDiv = styled.div`
   position: absolute;
   top: ${(props) => props.top}px;
   left: ${(props) => props.left}px;
 `;
 
-const PowerUp = styled(PositionedDiv)`
+const StyledPowerUp = styled(StyledPositionedDiv)`
   background-color: green;
   width: 20px;
   height: 20px;
   border-radius: 10px;
 `;
 
-const Obstacle = styled(PositionedDiv)`
+const StyledObstacle = styled(StyledPositionedDiv)`
   background-color: red;
   width: 50px;
   height: 50px;
@@ -118,34 +118,34 @@ const GameLevel = ({ level, loading, score, enemiesRemaining, progress }) => {
   }, [/* dependencies */]);
 
   return (
-    <GameLevelContainer key={level}>
+    <StyledGameLevelContainer key={level}>
       {loading ? (
         <div>Loading...</div>
       ) : (
         <>
-          <ScoreComponent>Score: {score}</ScoreComponent>
-          <EnemiesRemainingComponent>Enemies Remaining: {enemiesRemaining}</EnemiesRemainingComponent>
-          <GameLevelTitle>{gameLevel}</GameLevelTitle>
+          <StyledScoreComponent>Score: {score}</StyledScoreComponent>
+          <StyledEnemiesRemainingComponent>Enemies Remaining: {enemiesRemaining}</StyledEnemiesRemainingComponent>
+          <StyledGameLevelTitle>{gameLevel}</StyledGameLevelTitle>
           <Game gameState={isGamePaused ? 'paused' : 'playing'} onLevelComplete={() => console.log('Level completed!')} />
-          <PauseButton onClick={handlePauseToggle}>{isGamePaused ? 'Resume' : 'Pause'}</PauseButton>
-          <RestartButton loading={loading} onClick={handleRestart}>
+          <StyledPauseButton onClick={handlePauseToggle}>{isGamePaused ? 'Resume' : 'Pause'}</StyledPauseButton>
+          <StyledRestartButton loading={loading} onClick={handleRestart}>
             Restart
-          </RestartButton>
-          <ProgressBar>
-            <ProgressIndicator progress={progress} />
-          </ProgressBar>
-          <PowerUp
+          </StyledRestartButton>
+          <StyledProgressBar>
+            <StyledProgressIndicator progress={progress} />
+          </StyledProgressBar>
+          <StyledPowerUp
             top={Math.random() * (window.innerHeight - 100) + 100}
             left={Math.random() * (window.innerWidth - 100) + 100}
           />
-          <Obstacle
+          <StyledObstacle
             top={Math.random() * (window.innerHeight - 50) + 50}
             left={Math.random() * (window.innerWidth - 100) + 100}
           />
           <Leaderboard />
         </>
       )}
-    </GameLevelContainer>
+    </StyledGameLevelContainer>
   );
 };
 
