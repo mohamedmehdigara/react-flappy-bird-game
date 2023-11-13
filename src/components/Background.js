@@ -1,4 +1,3 @@
-// Background.js
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -13,7 +12,7 @@ const BackgroundContainer = styled.div`
   z-index: ${(props) => props.zIndex || -1}; /* Place it behind other elements */
 `;
 
-const Background = ({ backgroundColor, zIndex }) => {
+const Background = ({ backgroundColor = 'skyblue', zIndex = -1 }) => {
   return <BackgroundContainer backgroundColor={backgroundColor} zIndex={zIndex} />;
 };
 
