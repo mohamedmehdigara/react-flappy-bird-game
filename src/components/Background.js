@@ -9,8 +9,8 @@ const BackgroundContainer = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: ${(props) => props.backgroundColor};
-  z-index: ${(props) => props.zIndex}; /* Place it behind other elements */
+  background-color: ${(props) => props.backgroundColor || 'skyblue'};
+  z-index: ${(props) => props.zIndex || -1}; /* Place it behind other elements */
 `;
 
 // Background functional component
@@ -22,12 +22,6 @@ const Background = ({ backgroundColor, zIndex }) => {
 Background.propTypes = {
   backgroundColor: PropTypes.string,
   zIndex: PropTypes.number,
-};
-
-// Default props for better readability
-Background.defaultProps = {
-  backgroundColor: 'skyblue',
-  zIndex: -1,
 };
 
 export default Background;
