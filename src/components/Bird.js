@@ -1,26 +1,66 @@
 import React from 'react';
-import { useSpring, animated } from 'react-spring';
+import styled, { keyframes } from 'styled-components';
 
-const Bird = ({ speed }) => {
-  const [birdPosition, setBirdPosition] = useSpring(() => ({
-    position: [100, 100, 0],
-    config: { mass: 1, tension: 80, friction: 20 },
-  }));
+const flapAnimation = keyframes`
+  0% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(-20px) rotate(20deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+`;
 
-  React.useEffect(() => {
-    const updateBirdPosition = () => {
-      setBirdPosition({ position: [100, birdPosition.y + speed, 0] });
-    };
+const BirdContainer = styled.div`
+  position: absolute;
+  bottom: 50%; /* Adjust the positioning as needed */
+  left: 50%;
+  transform: translate(-50%, 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: ${flapAnimation} 0.5s infinite; /* Add a flap animation */
+`;
 
-    const animationFrameId = requestAnimationFrame(updateBirdPosition);
+const Body = styled.div`
+  width: 40px;
+  height: 20px;
+  background-color: #ffcc00; /* Yellow color for the bird */
+  border-radius: 20px 20px 10px 10px;
+`;
 
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [speed, birdPosition.y, setBirdPosition]);
+const Eye = styled.div`
+  width: 10px;
+  height: 10px;
+  background-color: black;
+  border-radius: 50%;
+  position: absolute;
+  top: 5px;
+  left: 20px;
+`;
+
+const Beak = styled.div`
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 20px solid #ffcc00; /* Use the same color as the body */
+  position: absolute;
+  top: 8px;
+  left: 30px;
+  transform: rotate(45deg);
+`;
+
+const Bird = () => {
   return (
-    <mesh>
-      <boxBufferGeometry args={[10, 10, 10]} />
-      <meshBasicMaterial color="black" />
-    </mesh>
+    <BirdContainer>
+      <Body>
+        <Eye />
+        <Beak />
+      </Body>
+    </BirdContainer>
   );
 };
 

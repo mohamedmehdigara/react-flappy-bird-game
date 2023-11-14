@@ -32,7 +32,9 @@ const GameContainer = () => {
       <animated.mesh position={birdAnimation.position}>
         <boxBufferGeometry args={[10, 10, 10]} />
         <meshBasicMaterial color="black" />
+        
       </animated.mesh>
+      <Bird/>
 
       {/* Other components like obstacles, power-ups, etc. */}
       <Obstacle position={[10, 5, 0]} /> {/* Example Obstacle component with position prop */}
